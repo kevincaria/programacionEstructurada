@@ -1,0 +1,76 @@
+program {
+    DibujarRectanguloRojoYNegroDe5x3()
+}
+
+    procedure DibujarRectanguloRojoYNegroDe5x3(){
+    /*
+    PROPÓSITO: Poner un rectángulo sólido de 5 celdas de ancho y 3
+    celdas de alto, en la que cada celda tenga una bolita de color
+    Rojo y una de color Negro. El cabezal comienza y termina en el
+    vértice inferior izquierda del mismo.
+    PRECONDICIONES:
+    * Hay al menos 4 celdas al Este y 2 celdas al Norte de la celda
+    actual.*/
+        DibujarLineaRojaYNegraDeTamaño5()
+        Mover(Norte)
+        DibujarLineaRojaYNegraDeTamaño5()
+        Mover(Norte)
+        DibujarLineaRojaYNegraDeTamaño5()
+        Mover2VecesAlSur()
+    }
+    
+
+    procedure DibujarLineaRojaYNegraDeTamaño5(){
+    /*
+    PROPÓSITO: Dibujar una linea de 5 celdas de ancho en lo que 
+    cada celda tenga una bolita de color Rojo y una de color Negro 
+    Hacia el Este.
+    El cabezal comienza y termina en la punta izquierda de la linea.
+    PRECONDICIONES:
+    *Hay al menos 4 celdas al Este de la celda actual
+    */
+        PonerUnaNegraYUnaRoja()
+        Mover(Este)
+        PonerUnaNegraYUnaRoja()
+        Mover(Este)
+        PonerUnaNegraYUnaRoja()
+        Mover(Este)
+        PonerUnaNegraYUnaRoja()
+        Mover(Este)
+        PonerUnaNegraYUnaRoja()
+        Mover4VecesAlOeste()
+    }
+    
+    procedure PonerUnaNegraYUnaRoja(){
+    /*
+    PROPÓSITO: Poner una bolita de color Rojo y una de color Negro en la celda actual.
+    PRECONDICIONES: Sin precondiciones
+    */
+        Poner(Negro)
+        Poner(Rojo)
+    }
+    
+    procedure Mover4VecesAlOeste(){
+    /*
+    PROPÓSITO: Mover el cabezal 4 veces al Oeste de la celda actual
+    PRECONDICIONES:
+    *Hay al menos 4 celdas al Oeste de la celda actual
+    */
+        Mover(Oeste)
+        Mover(Oeste)
+        Mover(Oeste)
+        Mover(Oeste)
+    }
+    
+    procedure Mover2VecesAlSur(){
+     /*
+    PROPÓSITO: Mover el cabezal 2 veces al Sur de la celda actual
+    PRECONDICIONES:
+    *Hay al menos 2 celdas al Sur de la celda actual
+    */
+        Mover(Sur)
+        Mover(Sur)
+    }
+
+
+

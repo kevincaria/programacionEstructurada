@@ -1,0 +1,72 @@
+procedure Mover3VecesAlSur(){
+     /*
+    PROPÓSITO: Mover el cabezal 3 veces al Sur de la celda actual
+    PRECONDICIONES:
+    *Hay al menos 3 celdas al Sur de la celda actual
+    */
+        Mover(Sur)
+        Mover(Sur)
+        Mover(Sur)
+        Mover(Sur)
+    }
+    
+procedure PonerUnaDeCada(){
+        /*
+    PROPÓSITO: Poner una bolita de cada color (Rojo,Verde,Negro,Azul) en la celda actual
+    PRECONDICIONES: sin precondiciones.
+    actual.*/
+    Poner(Rojo)
+    Poner(Negro)
+    Poner(Verde)
+    Poner(Azul)
+}
+
+procedure Mover3VecesAlOeste(){
+    /*
+    PROPÓSITO:Mover el cabezal 3 veces al oeste de la celda actual
+    PRECONDICIONES: Hay al menos 3 celdas al oeste de la celda actual*/
+    Mover(Oeste)
+    Mover(Oeste)
+    Mover(Oeste)
+}
+
+procedure DibujarLíneaMulticolorDeLargo4(){
+        /*
+    PROPÓSITO: Dibujar una linea de 4 celdas de ancho en lo que 
+    cada celda tenga una bolita de cada color hacia el Este de la celda actual.
+    El cabezal comienza y termina en la punta izquierda de la linea.
+    PRECONDICIONES:
+    *Hay al menos 3 celdas al Este de la celda actual
+    */
+    PonerUnaDeCada()
+    Mover(Este)
+    PonerUnaDeCada()
+    Mover(Este)
+    PonerUnaDeCada()
+    Mover(Este)
+    PonerUnaDeCada()
+    Mover3VecesAlOeste()
+}
+
+procedure DibujarCuadradoMulticolorDeLado4(){
+    /*
+    PROPÓSITO: Dibujar un cuadrado sólido de 4 celdas de ancho y 4
+    celdas de alto, en la que cada celda tenga una bolita de cada color. 
+    El cabezal comienza y termina en el
+    vértice inferior izquierda del mismo.
+    PRECONDICIONES:
+    * Hay al menos 3 celdas al Este y 3 celdas al Norte de la celda
+    actual.*/
+    DibujarLíneaMulticolorDeLargo4()
+    Mover(Norte)
+    DibujarLíneaMulticolorDeLargo4()
+    Mover(Norte)
+    DibujarLíneaMulticolorDeLargo4()
+    Mover(Norte)
+    DibujarLíneaMulticolorDeLargo4()
+    Mover3VecesAlSur()
+}
+
+program {
+    DibujarCuadradoMulticolorDeLado4()
+}

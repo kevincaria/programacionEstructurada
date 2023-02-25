@@ -1,0 +1,63 @@
+program{
+    PonerGuardaDe5Azulejos()
+}
+
+procedure PonerGuardaDe5Azulejos(){
+    /*PROPÓSITO:Dibujar una guarda de azulejos de 5 celdas de ancho en lo que 
+    cada celda tenga. El cabezal comienza y termina en la punta izquierda de la linea.
+    PRECONDICIÓN: Hay al menos 5 celdas al este de la celda actual.
+    */
+    DibujarAzulejo()
+    Mover(Este)
+    DibujarAzulejo()
+    Mover(Este)
+    DibujarAzulejo()
+    Mover(Este)
+    DibujarAzulejo()
+    Mover(Este)
+    DibujarAzulejo()
+    Mover4VecesAlEste()
+}
+
+procedure DibujarrAzulejo(){
+    /*PROPÓSITO: Poner un azulejo en la celda actual
+    PRECONDICIONES: La celda actual no debe tener bolitas.
+    OBSERVACIÓN: los azulejos son representados por  1 bolita verde, 5 negras y 9 rojas.*/
+    Poner (Verde)
+    Poner5BolitasNegras()
+    Poner9BolitasRojas()
+}
+
+procedure Poner5BolitasNegras(){
+    /*PROPÓSITO: Poner 5 bolitas negras en la celda actual
+    PRECONDICIONES: Sin precondiciones.*/
+    Poner (Negro)
+    Poner (Negro)
+    Poner (Negro)
+    Poner (Negro)
+    Poner (Negro)
+}
+
+procedure Poner9BolitasRojas(){
+    /*PROPÓSITO: Poner 9 bolitas rojas en la celda actual.
+    PRECONDICIONES: sin precondiciones.*/
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+    Poner (Rojo)
+}
+
+procedure Mover4VecesAlEste(){
+    /* PROPÓSITO: Mover el cabezal 4 veces al Este de la celda actual
+    PRECONDICIONES: Hay al menos 4 celdas al Este de la celda actual
+    */
+        Mover(Este)
+        Mover(Este)
+        Mover(Este)
+        Mover(Este)
+}

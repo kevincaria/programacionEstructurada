@@ -1,0 +1,42 @@
+program {
+    PintarElTableroDeAzul()
+}
+
+procedure PintarElTableroDeAzul(){
+    /*
+        PROPÓSITO:  Pintar un tablero de Azul celdas de 10 celdas de largo y 10 celdas de y
+         7 celdas de alto partir de la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 9 celdas hacia el Este y 6 hacia el Norte de la celda actual.
+    */
+    repeat(6){
+        DibujarLineaAzul()
+        Mover(Norte)
+    }
+    DibujarLineaAzul()
+}
+
+procedure DibujarLineaAzul(){
+    /*
+        PROPÓSITO:  Dibujar una línea Azul de 10 celdas de largo a partir de la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 9 celdas hacia el Este de la celda actual.
+    */
+    repeat(9){
+        Poner(Azul)
+        Mover(Este)
+    }
+    Poner(Azul)
+    Mover9VecesAlOeste()
+}
+
+procedure Mover9VecesAlOeste(){
+    /*
+        PROPÓSITO: Mover el cabezal 9 celdas hacia el Oeste desde la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 9 celdas al Oeste de la celda actual.
+    */
+    repeat(9){
+        Mover(Oeste)
+    }
+}

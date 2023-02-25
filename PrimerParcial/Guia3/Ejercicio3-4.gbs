@@ -1,0 +1,19 @@
+procedure Poner6DeColorNegro(){
+     /*
+    PROPOSITO: Poner 6 bolitas de color Negro de la celda actual.
+    PRECONDICIONES: Sin precondiciones.
+    */
+    repeat (6) {
+        Poner(Negro)
+    }
+}
+
+procedure Poner6DeColorVerde(){
+     /*
+    PROPOSITO: Poner 6 bolitas de color Verde de la celda actual.
+    PRECONDICIONES: Sin precondiciones.
+    */
+    repeat (6) {
+        Poner(Verde)
+    }
+}

@@ -1,0 +1,21 @@
+procedure Mover3VecesAlNorte(){
+    /*
+    PROPOSITO: Mover el cabezal 3 posiciones al norte de la celda actual.
+    PRECONDICIONES: 
+    - Debe haber al menos 3 celdas al Norte de la celda actual.
+    */
+    repeat (3) {
+        Mover(Norte)
+    }
+}
+
+procedure Mover2VecesAlEste(){
+     /*
+    PROPOSITO: Mover el cabezal 3 posiciones al Oeste de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 3 celdas al Oeste de la celda actual.
+    */
+    repeat (3) {
+        Mover(Este)
+    }
+}

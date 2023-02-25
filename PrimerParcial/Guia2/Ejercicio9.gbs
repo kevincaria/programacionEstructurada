@@ -1,0 +1,153 @@
+program{
+    DibujarRelojAnalógicoSimplificado()
+}
+
+procedure DibujarRelojAnalógicoSimplificado(){
+    /*
+    PROPOSITO: Dibujar un reloj analógico simplicado de radio 2 con centro en la celda actual
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas de distancia en las 
+    cuatro direcciones (Norte,Sur,Este,Oeste) de la celda actual.
+    - La celda a 2 ubicaciones al Norte/Sur/Este/Oeste de la celda actual debe estar vacía. 
+    */
+    DibujarNumero12AlNorte()
+    DibujarNumero3AlEste()
+    DibujarNumero6AlSur()
+    DibujarNumero9AlOeste()
+}
+
+procedure DibujarNumero12AlNorte(){
+    /*
+    PROPOSITO: Dibujar el numero 12 a una distancia de 2 celdas al Norte de la celda actual.
+    PRECONDICIONES: 
+    - Debe haber al menos 2 celdas al Norte de la celda actual.
+    - La celda que esta 2 posiciones al Norte de la celda actual debe estar vacia.
+    */
+    Mover2VecesAlNorte()
+    DibujarNumero12()
+    Mover2VecesAlSur()
+}
+
+procedure DibujarNumero3AlEste(){
+     /*
+    PROPOSITO: Dibujar el numero 3 a una distancia de 2 celdas al Este de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Este de la celda actual.
+    - La celda que esta 2 posiciones al Este de la celda actual debe estar vacia.
+    */
+    Mover2VecesAlEste()
+    DibujarNumero3()
+    Mover2VecesAlOeste()
+}
+
+procedure DibujarNumero6AlSur(){
+     /*
+    PROPOSITO: Dibujar el numero 6 a una distancia de 2 celdas al Sur de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Sur de la celda actual.
+    - La celda que esta 2 posiciones al Sur de la celda actual debe estar vacia.
+    */
+    Mover2VecesAlSur()
+    DibujarNumero6()
+    Mover2VecesAlNorte()
+}
+
+procedure DibujarNumero9AlOeste(){
+     /*
+    PROPOSITO: Dibujar el numero 9 a una distancia de 2 celdas al Oeste de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Oeste de la celda actual.
+    - La celda que esta 2 posiciones al Oeste de la celda actual debe estar vacia.
+    */
+    Mover2VecesAlOeste()
+    DibujarNumero9()
+    Mover2VecesAlEste()
+}
+
+procedure Mover2VecesAlOeste(){
+     /*
+    PROPOSITO: Mover el cabezal 2 posiciones al Oeste de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Oeste de la celda actual.
+    */
+    repeat (2) {
+        Mover(Oeste)
+    }
+}
+
+procedure Mover2VecesAlEste(){
+     /*
+    PROPOSITO: Mover el cabezal 2 posiciones al Este de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Este de la celda actual.
+    */
+    repeat (2) {
+        Mover(Este)
+    }
+}
+
+procedure Mover2VecesAlNorte(){
+     /*
+    PROPOSITO: Mover el cabezal 2 posiciones al Norte de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Norte de la celda actual.
+    */
+    repeat (2) {
+        Mover(Norte)
+    }
+}
+
+procedure Mover2VecesAlSur(){
+     /*
+    PROPOSITO: Mover el cabezal 2 posiciones al Sur de la celda actual.
+    PRECONDICIONES:
+    - Debe haber al menos 2 celdas al Sur de la celda actual.
+    */
+    repeat (2) {
+        Mover(Sur)
+    }
+}
+
+procedure DibujarNumero3(){
+     /*
+    PROPOSITO: Dibujar el numero 3 en la celda actual.
+    PRECONDICIONES: La celda actual debe estar vacia.
+    OBSERVACIONES: EL numero 3 se representa con bolitas de color rojo.
+    */
+    repeat (3) {
+        Poner(Rojo)
+    }
+}
+
+procedure DibujarNumero6(){
+     /*
+    PROPOSITO: Dibujar el numero 6 en la celda actual.
+    PRECONDICIONES: La celda actual debe estar vacia.
+    OBSERVACIONES: EL numero 6 se representa con bolitas de color rojo.
+    */
+    repeat (6) {
+        Poner(Rojo)
+    }
+}
+
+procedure DibujarNumero9(){
+     /*
+    PROPOSITO: Dibujar el numero 9 en la celda actual.
+    PRECONDICIONES: La celda actual debe estar vacia.
+    OBSERVACIONES: EL numero 9 se representa con bolitas de color rojo.
+    */
+    repeat (9) {
+        Poner(Rojo)
+    }
+}
+
+procedure DibujarNumero12(){
+     /*
+    PROPOSITO: Dibujar el numero 12 en la celda actual.
+    PRECONDICIONES: La celda actual debe estar vacia.
+    OBSERVACIONES: EL numero 12 se representa con bolitas de color rojo.
+    */
+    repeat (12) {
+        Poner(Rojo)
+    }
+}

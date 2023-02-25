@@ -1,0 +1,57 @@
+procedure PonerUnaSemilla(){
+    /*PROPÓSITO: Representar una semilla en la celda actual.
+    PRECONDICIONES: Sin precondiciones.
+    OBSERVACIONES: Cada semilla se representa con una bolita roja
+    */
+
+}
+
+procedure PonerUnÁrbol(){
+    /*PROPÓSITO: Representar un árbol en la celda actual.
+    PRECONDICIONES: Sin precondiciones.
+    OBSERVACIONES: Cada árbol se representa con una bolita verde.
+    */
+}
+
+procedure PonerUnaBomba(){
+    /*PROPÓSITO: Representar una bomba en la celda actual.
+    PRECONDICIONES: Sin precondiciones.
+    OBSERVACIONES: Cada bomba se representa con una bolita negra.
+    */
+}
+
+procedure PonerUnNutriente(){
+    /*PROPÓSITO: Representar una unidad de nutriente en la celda actual.
+    PRECONDICIONES: Sin precondiciones.
+    OBSERVACIONES: Cada nutriente se representa con una bolita azul.
+    */
+}
+
+procedure SacarUnaSemilla(){
+    /*PROPÓSITO: Sacar una semilla de la celda actual.
+    PRECONDICIONES: Debe haber al menos una semilla en la celda actual.
+    OBSERVACIONES: Cada semilla se representa con una bolita roja
+    */
+    
+}
+
+procedure SacarUnÁrbol(){
+    /*PROPÓSITO: Sacar un árbol de la celda actual.
+    PRECONDICIONES: Debe haber al menos un árbol en la celda actual.
+    OBSERVACIONES: Cada árbol se representa con una bolita verde.
+    */
+}
+
+procedure SacarUnaBomba(){
+    /*PROPÓSITO: Sacar una bomba de la celda actual.
+    PRECONDICIONES: Debe haber al menos una bomba en la celda actual.
+    OBSERVACIONES: Cada bomba se representa con una bolita negra.
+    */
+}
+
+procedure SacarUnNutriente(){
+    /*PROPÓSITO: Sacar una unidad de nutriente de la celda actual.
+    PRECONDICIONES: Debe haber al menos un nutriente en la celda actual.
+    OBSERVACIONES:  Cada nutriente se representa con una bolita azul.
+    */
+}

@@ -1,0 +1,53 @@
+program {
+    DibujarRectánguloRojoYNegroDe5x3()
+}
+
+procedure DibujarRectánguloRojoYNegroDe5x3(){
+    /*
+        PROPÓSITO:  Dibujar un rectangulo Rojo y Negro de 5 celdas de largo y
+         3 celdas de alto a partir de la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 4 celdas hacia el Este y 2 hacia el Norte de la celda actual.
+    */
+    repeat(2){
+        DibujarLineaRojaYNegra()
+        Mover(Norte)
+    }
+    DibujarLineaRojaYNegra()
+}
+
+procedure DibujarLineaRojaYNegra(){
+    /*
+        PROPÓSITO:  Dibujar una línea Roja y Negra de 5 celdas de largo a partir de la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 4 celdas hacia el Este de la celda actual.
+    */
+    repeat(4){
+        DibujarCuadradoRojoYNegro1x1()
+        Mover(Este)
+    }
+    DibujarCuadradoRojoYNegro1x1()
+    Mover4VecesAlOeste()
+}
+
+procedure DibujarCuadradoRojoYNegro1x1(){
+    /*
+        PROPÓSITO: Dibujar un cuadrado Rojo y Negro en la celda actual.
+        PRECONDICIONES:
+            * Sin precondiciones.
+        OBSERVACIÓN: Un cuadrado Rojo y Negro es representado por 1 bolita Roja y 1 Bolita Negra.
+    */
+    Poner(Negro)
+    Poner(Rojo)
+}
+
+procedure Mover4VecesAlOeste(){
+    /*
+        PROPÓSITO: Mover el cabezal 4 celdas hacia el Oeste desde la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 4 celdas al Oeste de la celda actual.
+    */
+    repeat(4){
+        Mover(Oeste)
+    }
+}
