@@ -1,0 +1,188 @@
+//1
+type DiaDeLaSemana is variant{
+    /*
+    PROPOSITO: Modela los dias de la semana
+    */
+    case Lunes {}
+    case Martes {}
+    case Miercoles {}
+    case Jueves {}
+    case Viernes {}
+    case Sabado {}
+    case Domingo {}
+}
+
+function diaSiguiente_(dia){
+    /*
+    PROPOSITO: Dado un dia de la semana, describe el dia siguiente.
+    PRECONDICIONES: ninguna.
+    PARAMETROS: dia - DiaDeLaSemana - Describe el dia siguiente al dia dado
+    TIPO: DiaDeLaSemana
+    */
+
+    return( choose  Martes when (dia==Lunes)
+                    Miercoles when (dia==Martes)
+                    Jueves when (dia==Miercoles)
+                    Viernes when (dia==Jueves)
+                    Sabado when (dia==Viernes)
+                    Domingo when (dia==Sabado)
+                    Lunes otherwise )
+}
+
+function diaAnterior_(dia){
+    /*
+    PROPOSITO: Dado un dia de la semana, describe el dia anterior.
+    PRECONDICIONES: ninguna.
+    PARAMETROS: dia - DiaDeLaSemana - Describe el dia anterior al dia dado
+    TIPO: DiaDeLaSemana
+    */
+
+    return( choose  Martes when (dia==Miercoles)
+                    Miercoles when (dia==Jueves)
+                    Jueves when (dia==Viernes)
+                    Viernes when (dia==Sabado)
+                    Sabado when (dia==Domingo)
+                    Domingo when (dia==Lunes)
+                    Lunes otherwise )
+}
+
+function esDiaDeFinDeSemana_(dia){
+    /*
+    PROPOSITO: Indica si el dia **dia** es del fin de semana
+    PRECONDICIONES: ninguna.
+    PARAMETROS: dia - DiaDeLaSemana - Describe el dia a evaluar
+    TIPO: Booleano
+    */
+    return (dia==Sabado || dia==Domingo)
+}
+
+//2
+type PartidoPolitico is variant {
+    /*
+    PROPOSITO: Modela los partidos politicos de un pais.
+    */
+    case DemocraciaPorLaVerdad {}
+    case UnidosPorLaRepublica {}
+    case LiberalesPorLaLibertad {}
+    case IzquierdaDeLosObreros {}
+}
+
+function tieneMasVotantes_Que_(primerPartido,segundoPartido){
+    /*
+    PROPOSITO: Indica si **primerPartido** tiene mas votos que **segundoPartido**
+    PRECONDICIONES: ninguna.
+    PARAMETROS: 
+        * primerPartido - PartidoPolitico - Primer partido politico a evaluar
+        * segundoPartido - PartidoPolitico - Segundo partido politico a evaluar
+    TIPO: Booleano
+    */
+    return(cantidadDeVotosDe_(primerPartido)>cantidadDeVotosDe_(segundoPartido))
+}
+function tieneMasVotos_Que_Y_Y(primerPartido, segundoPartido, tercerPartido, cuartoPartido){
+    /*
+    PROPOSITO: Dado los 4 partidos, indica si el primero tiene mas votos que los demas
+    PRECONDICIONES: ninguna.
+    PARAMETROS: 
+        * primerPartido - PartidoPolitico - Primer partido politico a evaluar
+        * segundoPartido - PartidoPolitico - Segundo partido politico a evaluar
+        * tercerPartido - PartidoPolitico - Tercer partido politico a evaluar
+        * cuartoPartido - PartidoPolitico - Cuarto partido politico a evaluar
+    TIPO: Booleano
+    */
+    return( tieneMasVotantes_Que_(primerPartido, segundoPartido) &&
+            tieneMasVotantes_Que_(primerPartido, tercerPartido) &&
+            tieneMasVotantes_Que_(primerPartido, cuartoPartido))
+}
+
+function elQueTieneMasVotos(){
+    /*
+    PROPOSITO: Describe al partido politico con mas votantes.
+    PRECONDICIONES: Debe haber al menos un partido politico con un voto o mas.
+    TIPO: PartidoPolitico
+    */
+    return(choose   DemocraciaPorLaVerdad when tieneMasVotos_Que_Y_Y(   DemocraciaPorLaVerdad, 
+                                                                        UnidosPorLaRepublica, 
+                                                                        LiberalesPorLaLibertad, 
+                                                                        IzquierdaDeLosObreros)
+                    UnidosPorLaRepublica when tieneMasVotos_Que_Y_Y(    UnidosPorLaRepublica, 
+                                                                        DemocraciaPorLaVerdad,
+                                                                        LiberalesPorLaLibertad, 
+                                                                        IzquierdaDeLosObreros)
+                    LiberalesPorLaLibertad when tieneMasVotos_Que_Y_Y(  LiberalesPorLaLibertad, 
+                                                                        UnidosPorLaRepublica, 
+                                                                        DemocraciaPorLaVerdad, 
+                                                                        IzquierdaDeLosObreros)
+                    IzquierdaDeLosObreros otherwise )
+}
+
+function habraBallotage(){
+    /*
+    PROPOSITO: Indica si en estas elecciones habra ballotage
+    PRECONDICIONES: Ninguna.
+    TIPO: Booleano
+    */
+    return(not elGanadorTieneMasDeLaMitad() && not elPrimeroTieneMasDel10PorCientoDeDiferencia())
+}
+
+function elGanadorTieneMasDeLaMitad(){
+    /*
+    PROPOSITO: Indica si el ganador tiene mas del 50% de los votos
+    PRECONDICIONES: Ninguna.
+    TIPO: Booleano
+    */
+    return(cantidadDeVotosDe_(elQueTieneMasVotos())>cantidadDeVotosTotaltes() div 2 )
+}
+
+function cantidadDeVotosTotales(){
+    /*
+    PROPOSITO: Describe la cantidad total de votos en estas elecciones
+    PRECONDICIONES: Ninguna.
+    TIPO: Numero
+    */
+    return( cantidadDeVotosDe_(DemocraciaPorLaVerdad)+ cantidadDeVotosDe_(UnidosPorLaRepublica)+
+            cantidadDeVotosDe_(LiberalesPorLaLibertad)+cantidadDeVotosDe_(IzquierdaDeLosObreros))
+}
+
+function partidoSiguiente_(partido){
+    /*
+    PROPOSITO: Dado un partido politico, describe el siguiente.
+    PRECONDICIONES: ninguna.
+    PARAMETROS: partido - PartidoPolitico - Describe el partido siguiente al partido dado
+    TIPO: DiaDeLaSemana
+    */
+
+    return( choose  UnidosPorLaRepublica when (dia==DemocraciaPorLaVerdad)
+                    LiberalesPorLaLibertad when (dia==UnidosPorLaRepublica)
+                    IzquierdaDeLosObreros when (dia==LiberalesPorLaLibertad)
+                    DemocraciaPorLaVerdad otherwise )
+}
+
+
+function elPrimeroTieneMasDel10PorCientoDeDiferencia(){
+    /*
+    PROPOSITO: Indica si el ganador tiene una diferencia de mas del 10% con el segundo partido
+    PRECONDICIONES: Ninguna.
+    TIPO: Booleano
+    */
+
+    partidoAEvaluar:= partidoSiguiente_(elQueTieneMasVotos)
+
+    while(partidoAEvaluar/= elQueTieneMasVotos() &&
+            not hayDiferenciaMenorADiezEntre_Y_(elQueTieneMasVotos(), partidoAEvaluar)){
+        partidoAEvaluar:= partidoSiguiente_(partidoAEvaluar)
+            }
+    return(hayDiferenciaMenorADiezEntre_Y_(elQueTieneMasVotos(), partidoAEvaluar))
+}
+
+function hayDiferenciaMenorADiezEntre_Y_(primerPartido, segundoPartido){
+    /*
+    PROPOSITO: Indica si entre hay menos de 10% de diferencia
+    PRECONDICIONES: Ninguna.
+    TIPO: Booleano
+    */
+
+    diezPorCientoDeVotos:= cantidadDeVotosTotaltes* (10 div 100)
+    return( (   cantidadDeVotosDe_(primerPartido) - 
+                cantidadDeVotosDe_(segundoPartido))< 
+                diezPorCientoDeVotos)
+}

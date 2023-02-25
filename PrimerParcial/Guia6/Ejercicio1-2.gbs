@@ -1,0 +1,27 @@
+/* 1.-
+a.- A:V        b.- A:F          c.- A: F
+    B:V            B:F              B: V
+    C:F            C:V              C: V
+
+d.- A: F         e.- A:F          f.- A:
+    B: V             B:V              B:
+    C: F             C:V              C:
+*/
+
+/* 2.-
+a. Cuando la celda actual tiene más de 5 bolitas de color Rojo. 
+ nroBolitas(Rojo)>5
+
+b. Cuando la celda actual tiene al menos 9 bolitas en total entre rojas y negras. 
+ nroBolitas(Rojo)+nroBolitas(Negro)>=9
+
+c. Cuando la celda actual es la esquina Norte-Este. 
+not(puedeMover(Norte))&&not(puedeMover(Este))
+
+d. Cuando la celda actual está vacía. 
+not(hayBolitas(Negro)||hayBolitas(Azul)||hayBolitas(Rojo)||hayBolitas(Verde))
+
+e. Cuando hay una sola celda en el tablero. 
+not(puedeMover(Norte)||puedeMover(Este)||puedeMover(Oeste)||puedeMover(Sur))
+
+*/

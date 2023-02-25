@@ -1,0 +1,16 @@
+function _esFordNegro(autoAEvaluar){
+    /*
+    PROPOSITO: Indica si *autoAEvaluar* es un Ford Negro.
+    PRECONDICIONES: Ninguna
+    PARAMETROS:
+        * autoAEvaluar - Auto - El auto a evaluar
+    TIPO: Booleano
+    */
+    return(marca(autoAEvaluar())==FORD && colorDeAuto(autoAEvaluar)== Negro)
+}
+
+program{
+    return (_esFordNegro(Auto(  marca <- AUDI
+                                colorDeAuto <- Azul
+                                modelo <- 2020)))
+}

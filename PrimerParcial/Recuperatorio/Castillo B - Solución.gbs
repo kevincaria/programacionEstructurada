@@ -1,0 +1,159 @@
+procedure RotarEnSentidoHorario() {
+    /*
+        PROPÓSITO: Rotar a LightBot en sentido horario, en la celda actual
+        PRECONDICIONES: Hay un LightBot en la celda actual.
+    */
+    RotarALightBotDe_Al_(direcciónALaQueMiraLightBot(),siguiente(direcciónALaQueMiraLightBot()))
+}
+
+
+procedure RotarALightBotDe_Al_(direcciónInicial,direcciónARotar) {
+    /*
+        PROPÓSITO: Rotar a LightBot mirando al *direcciónInicial* hacia la *direcciónARotar*, en la celda actual
+        PRECONDICIONES: Debe haber un LightBot mirando al *direcciónInicial* en la celda actual.
+                        *direcciónInicial* y *direcciónARotar* deben ser distintas.
+    */
+    SacarALightBotMirandoAl_(direcciónInicial)
+    PonerALightBotMirandoAl_(direcciónARotar)
+}
+
+
+procedure SacarALightBotMirandoAl_(dirección) {
+    /*
+        PROPÓSITO: Sacar a LightBot mirando al *dirección* en la celda actual
+        PRECONDICIONES: Debe haber un LightBot mirando al *dirección* en la celda actual.
+    */    
+    Sacar_DeColor_(codificaciónParaLightBotCuandoMiraAl_(dirección),lightBot())
+}
+
+
+procedure PonerALightBotMirandoAl_(dirección) {
+    /*
+        PROPÓSITO: Poner a LightBot mirando al *dirección* en la celda actual
+        PRECONDICIONES: No debe haber bolitas verdes en la celda actual.
+    */    
+    Poner_DeColor_(codificaciónParaLightBotCuandoMiraAl_(dirección),lightBot())
+}
+
+
+function lightBot() {
+    /*
+        PROPÓSITO: Describe el color con el que se representa a LightBot.
+        PRECONDICIONES: Ninguna.
+        TIPO: Color
+    */       
+    return(Verde)
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+procedure RotarEnSentidoHorario() {
+    /*
+        PROPÓSITO: Rotar a LightBot en sentido horario, en la celda actual
+        PRECONDICIONES: Hay un LightBot en la celda actual.
+    */
+    if(lightBotEstáMirandoAlEste()) {
+        Sacar_DeColor_(3,Verde)
+        
+    } else {
+        Poner(Verde)
+    }
+}    
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+procedure RotarEnSentidoHorario() {
+    /*
+        PROPÓSITO: Rotar a LightBot en sentido horario, en la celda actual
+        PRECONDICIONES: Hay un LightBot en la celda actual.
+    */
+    if(lightBotEstáMirandoAlEste()) {
+        Sacar_DeColor_(3,Verde)
+    } else {
+        Poner(Verde)
+    }
+}  
+
+function lightBotEstáMirandoAlEste() {
+    /*
+        PROPÓSITO: Indica si hay un LightBot mirando al Este en la celda actual.
+        PRECONDICIONES: LightBot debe estar en la celda actual.
+        TIPO: Booleano
+    */    
+    return(nroBolitas(lightBot())==4)
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+
+procedure MoverLightBotAl_(direcciónAMover) {
+    /*
+        PROPÓSITO: Mover a LightBot de la celda actual, una celda al *direcciónAMover*, dejando el cabezal sobre LightBot. 
+        PRECONDICIONES: LightBot debe estar en la celda actual, mirando a *direcciónAMover*.
+                        Debe haber al menos una celda en al *direcciónAMover*.
+                        La celda actual y la lindante al *direcciónAMover* deben tener la misma altura.
+    */
+    SacarALightBotMirandoAl_(direcciónAMover)
+    Mover(direcciónAMover)
+    PonerALightBotMirandoAl_(direcciónAMover)
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+procedure Avanzar() {
+    /*
+        PROPÓSITO: Mover a LightBot de la celda actual, una celda hacia donde está mirando, dejando el cabezal sobre LightBot. 
+        PRECONDICIONES: LightBot debe estar en la celda actual.
+                        Debe haber al menos una celda hacia la dirección donde mira LightBot.
+                        La celda actual y la lindante hacia donde mira LightBot deben tener la misma altura.
+    */
+    MoverLightBotAl_(direcciónALaQueMiraLightBot())
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+
+function estáLightBotSobreLuzPrendidaAcá() {
+    /*
+        PROPÓSITO: Indica si está LightBot en la celda actual, y está sobre una luz prendida 
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano.
+    */
+    return(estáLightBotAcá() && hayLuzPrendidaAcá())
+}
+
+function estáLightBotAcá() {
+    /*
+        PROPÓSITO: Indica si está LightBot en la celda actual. 
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano.
+    */
+    return(nroBolitas(lightBot())>=1 && nroBolitas(lightBot())<=4)
+}
+
+function hayLuzPrendidaAcá() {
+    /*
+        PROPÓSITO: Indica si hay una luz prendida en la celda actual.
+        PRECONDICIONES: Ninguna.
+        TIPO: Booleano.
+    */
+    return(nroBolitas(luz())==2)
+}
+
+function luz() {
+    /*
+        PROPÓSITO: Describe el color con el que se representa a la luz.
+        PRECONDICIONES: Ninguna.
+        TIPO: Color
+    */       
+    return(Azul)    
+}
+
+
+///////////////////////////////////////////////////////////////////////////

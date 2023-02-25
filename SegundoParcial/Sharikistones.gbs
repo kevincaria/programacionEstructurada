@@ -1,0 +1,218 @@
+//MODELO 1
+//1
+function fichaAleatoria() {
+    /*
+        PROPÓSITO: Describe la forma de la ficha con la cual reponer un espacio vacio
+        TIPO: FormaDeFicha
+        PRECONDICIONES: La celda actual debe estar libre
+    */
+    
+    return (choose  Circulo when (cantidadDe_Alrededor(Estrella)>= 2 && estaSobreBorde())
+                    Rombo   when (hay3FichasIgualesAlrededor()) 
+                    Estrella when (hayObstaculoAlrededor())
+                    Triangulo otherwise)
+}
+
+function cantidadDe_Alrededor(formaDeFicha) {
+    /*
+        PROPÓSITO:  Describe la cantidad de fichas con forma **formaDeFicha** que hay alrededor de la celda actual.
+        PARÁMETROS:
+            * formaDeFicha: FormaDeFicha - La forma de la ficha a buscar alrededor.
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+    */
+    direccionAMover:= minDir()
+    cantidadDeFicha:= 0
+    while(direccionAMover/=maxDir()){
+        cantidadDeFicha:= cantidadDeFicha + unoSi_CeroSino(hayFicha_Al_SiSePuedeMover(formaDeFicha,direccionAMover))
+        direccionAMover:= siguiente(direccionAMover)
+    }
+    return (cantidadDeFicha + unoSi_CeroSino(tieneFicha_Al_(formaDeFicha,direccionAMover))
+}
+function hayFicha_Al_SiSePuedeMover(formaDeFicha, direccion) {
+    /*
+        PROPÓSITO:  Indica si puede mover al **direccion** y hay ficha con  forma de **formaDeFicha** en dicha direccion
+        PARÁMETROS:
+            * formaDeFicha: tipo - La forma de la ficha a buscar.
+            * direccion: tipo - la direccion a buscar la ficha.
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    return (puedeMover(direccion) && hayFicha_Al_(FormaDeFicha,direccion))
+}
+
+function hayFicha_Al_(formaDeFicha, direccion) {
+    /*
+        PROPÓSITO:  Indica si hay ficha con  forma de **formaDeFicha** en direccion **direccion**
+        PARÁMETROS:
+            * formaDeFicha: tipo - La forma de la ficha a buscar.
+            * direccion: tipo - la direccion a buscar la ficha.
+        TIPO: Booleano
+        PRECONDICIONES: Debe haber al menos una celda en direccion direccion
+    */
+    Mover(direccion)
+    return (elementoAca() == Ficha && fichaAca() == formaDeFicha)
+}
+
+function estaSobreBorde() {
+    /*
+        PROPÓSITO: Indica si el cabezal esta sobre un borde
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    return (not (puedeMover(Norte) && puedeMover(Oeste) && puedeMover(Sur) && puedeMover(Este)))
+}
+
+
+function hay3FichasIgualesAlrededor() {
+    /*
+        PROPÓSITO:  Indica si hay 3 fichas iguales alrededor
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    return (    cantidadDe_Alrededor(Estrella) == 3 ||
+                cantidadDe_Alrededor(Estrella) == 3 ||
+                cantidadDe_Alrededor(Estrella) == 3 ||
+                cantidadDe_Alrededor(Estrella) == 3 )
+}
+
+function hayObstaculoAlrededor() {
+    /*
+        PROPÓSITO:  Indica si hay un obstaculo alrededor
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    direccionAMover:= minDir()
+    while(direccionAMover/=maxDir() && not hayObstaculoAl_SiPuedeMover(direccionAMover)){
+        direccionAMover:= siguiente(direccionAMover)
+    }
+    return (hayObstaculoAl_(direccionAMover))
+}
+
+function hayObstaculoAl_SiPuedeMover(direccion) {
+    /*
+        PROPÓSITO:  Indica si se puede mover al **direccion** y hay un obstaculo en esa direccion
+        PRECONDICIONES: Ninguna
+        TIPO: Booleano
+    */
+    return (puedeMover(direccion) && hayObstaculoAl_(direccion))
+}
+
+function hayObstaculoAl_(direccion) {
+    /*
+        PROPÓSITO:  Indica si shay un obstaculo al **direccion** 
+        PRECONDICIONES: Debe haber al menos una celda al **direccion**
+        TIPO: Booleano
+    */
+    Mover(direccion)
+    return ( elementoAca() == Obstáculo)
+}
+//2
+function cantidadDe_EnGrilla(tipoDeElemento) {
+    /*
+        PROPÓSITO:  Describe la cantidad de elementros de tipo **tipoDeElemento** que hay en la grilla
+        PARÁMETROS:
+            * tipoDeElemento: TipoDeElemento - El tipò de elemento a contar.
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+        OBSERVACIONES: Recorrido de acumulacion, contando la cantidad de elementos.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    cantidadDeElemento := 0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        cantidadDeElemento:= cantidadDeElemento + unoSi_CeroSino(elementoAca()==tipoDeElemento)
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    return (cantidadDeElemento + unoSi_CeroSino(elementoAca()==tipoDeElemento))
+}
+
+//3
+procedure ReponerEspaciosLibresEnGrilla() {
+    /*
+        PROPÓSITO:  Repone los espacios libres que hay en la grilla.
+        PRECONDICIONES: Ninguna
+        OBSERVACIONES: Recorrido de procesamiento, rellenando los espacios libres
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        RellenarEspacioSicorresponde()
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    RellenarEspacioSicorresponde()
+}
+
+procedure RellenarEspacioSicorresponde() {
+    /*
+        PROPÓSITO:  Repone el espacio con ficha aleatoria si estuviera libre
+        PRECONDICIONES: Ninguna
+    */
+    if(elementoAca()== Libre){
+        PonerFicha_(fichaAleatoria())
+    }
+}
+
+
+//4
+function EstadoActualDelJuego() {
+    /*
+        PROPÓSITO: Describe el estado actual del juego
+        TIPO: EstadoDelJuego
+        PRECONDICIONES: 
+            *Debe haber una forma de ficha de la cual hay mas cantidad.
+            *El nivel es >=0
+    */
+    return (EstadoDelJuego(
+                nivel <- cantidadDe_EnGrilla(Obstaculo),
+                hayMasTriangulosQueCirgulos <- (cantidadDeFicha_EnGrilla(Triangulo) > cantidadDeFicha_EnGrilla(Circulo)),
+                quedanRombos<- (cantidadDeFicha_EnGrilla(Rombo)>0),
+                fichaDeLaCualHayMas <-fichaConMasCantidad()
+    ))
+}
+
+function cantidadDeFicha_EnGrilla(formaDeFicha) {
+    /*
+        PROPÓSITO:  Describe la cantidad de elementros de tipo **formaDeFicha** que hay en la grilla
+        PARÁMETROS:
+            * formaDeFicha: FormaDeFicha - La forma de ficha a contar.
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+        OBSERVACIONES: Recorrido de acumulacion, contando la cantidad de fichas.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    cantidadDeFichas := 0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        cantidadDeFichas:= cantidadDeFichas + unoSi_CeroSino(elementoAca()==Ficha && fichaAca() == formaDeFicha)
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    return (cantidadDeFichas + unoSi_CeroSino(elementoAca()==tipoDeElemento))
+}
+
+function fichaConMasCantidad() {
+    /*
+        PROPÓSITO: Describe la forma de ficha con mas cantidad.
+        TIPO: FormaDeFicha
+        PRECONDICIONES: Debe haber una forma de ficha con mas cantidad.
+    */
+    return ( choose Circulo when hayMasDe_QueDe__Y_(Circulo,Triangulo,Rombo,Estrella)
+                    Triangulo when hayMasDe_QueDe__Y_(Triangulo, Circulo,Rombo,Estrella)
+                    Rombo when hayMasDe_QueDe__Y_(Rombo, Circulo,Triangulo, Estrella)
+                    Estrella otherwise )
+}
+
+function hayMasDe_QueDe__Y_(forma1, forma2, forma3, forma4) {
+    /*
+        PROPÓSITO:  Indica si hay mas fichas con forma forma1 que de fichas con forma2, forma3 y forma4
+        PARÁMETROS:
+            * forma1 - FormaDeFicha - La primer forma de ficha a evaluar
+            * forma2 - FormaDeFicha - La segunda forma de ficha a evaluar
+            * forma3 - FormaDeFicha - La tercer forma de ficha a evaluar
+            * forma4 - FormaDeFicha - La cuarta forma de ficha a evaluar
+
+        TIPO: Booleano
+        PRECONDICIONES:Ninguna
+    */
+    return (cantidadDeFicha_EnGrilla(forma1)>cantidadDeFicha_EnGrilla(forma2) &&
+            cantidadDeFicha_EnGrilla(forma1)>cantidadDeFicha_EnGrilla(forma3) &&
+            cantidadDeFicha_EnGrilla(forma1)>cantidadDeFicha_EnGrilla(forma4) &&
+            )
+}

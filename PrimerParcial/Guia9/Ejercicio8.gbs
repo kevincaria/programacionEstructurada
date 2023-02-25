@@ -1,0 +1,21 @@
+//8
+procedure CopiarCeldaAl_(dirección){
+        /*
+        PROPÓSITO:Copia el contenido de la celda actual y lo replica en la celda lindante en direccion
+        **direccion**, eliminando previamente el contenido de la celda destino.
+        PRECONDICIONES: Debe haber al menos una celda en direccion **direccion**
+        PARAMETROS:
+            *dirección - Direcciòn - Direcciòn en la cual copiar el contenido.
+    */
+    cantidadAzules:= nroBolitas(Azul)
+    cantidadVerde:= nroBolitas(Verde)
+    cantidadRojo:= nroBolitas(Rojo)
+    cantidadNegro:= nroBolitas(Negro)
+    Mover(dirección)
+    VaciarCelda()
+    Poner_DeColor_(cantidadAzules,Azul)  
+    Poner_DeColor_(cantidadVerde,Verde)
+    Poner_DeColor_(cantidadRojo,Rojo)
+    Poner_DeColor_(cantidadNegro,Negro)
+}   
+//9

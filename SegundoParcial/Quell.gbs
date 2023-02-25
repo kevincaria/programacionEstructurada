@@ -1,0 +1,156 @@
+//1
+/*
+Escribir el procedimiento GirarEnSentidoHorario que gira el elemento direccionable en la celda actual
+en sentido horario. Se asume que existe un elemento direccionable en la celda actual.
+*/
+procedure GirarEnSentidoHorario() {
+    /*
+        PROPÓSITO:  Gira el elemento direccionable de la celda actual en sentido horario 
+        PRECONDICIONES:
+            * Debe haber un elemento direccionable en la celda actual
+    */
+    elementoGirado:= elementoDireccionable_ConDireccionNuevaEn_(elementoDireccionable(), siguiente(direcciónALaQueApunta(elementoDireccionable)))
+    LimpiarCelda()
+    ColocarElementoDireccionable_(elementoGirado)
+}
+
+function elementoDireccionable_ConDireccionNuevaEn_(unElementoDireccionable, direccionNueva){
+    /*
+        PROPÓSITO: Describe al elemento direccionable **unElementoDireccionable** girado hacia la dirección nueva **direccionNueva**
+        PARÁMETROS:
+                **unElemento** - Persona - Elemento direccionable al cual se le cambia la direccion
+                **direccionNueva** - Direccion - La direccion nueva del elemento direccionable
+        TIPO: ElementoDireccionable
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (ElementoDireccionable(unElementoDireccionable|direcciónALaQueApunta<-direccionNueva))
+}
+
+//2
+/*
+En ocasiones, por ejemplo, cuando se presiona un interruptor, se deben girar todas las espinas rotables que
+hayan en el juego. Se pide que realice el procedimiento GirarTodasLasEspinasRotables que gira en
+sentido horario todas las espinas rotables que haya en el juego.
+*/
+procedure GirarTodasLasEspinasRotables() {
+    /*
+        PROPÓSITO:  Gira en sentido horario todas las espinas rotables que haya en el juego 
+        PRECONDICIONES: Sin precondiciones
+        OBSERVACIONES: Recorrido de procesamiento, girando en sentido horario todas las espinas rotables
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        GirarEspinasRotablesSiCorresponde()
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    GirarEnSentidoHorarioSiCorresponde()
+}
+
+procedure GirarEspinasRotablesSiCorresponde() {
+    /*
+        PROPÓSITO:  Gira el elemento direccionable de la celda actual en sentido horario si lo hubiera
+        PRECONDICIONES: Sin precondiciones
+    */
+    if(hayElemento() && formaDelElemento()==Direccionable && TipoDeElemento(elementoDireccionable())==EspinasRotables){
+        GirarEnSentidoHorario()
+    }
+}
+
+//3
+/*
+También es necesario poder determinar sí en algún lugar del juego se encuentra la burbuja. Así, se pide que
+escriba la función hayBurbujaEnElJuego que indica sí hay una burbuja en algún lugar del juego
+*/
+
+function hayBurbujaEnElJuego() {
+    /*
+        PROPÓSITO:  Indica si hay burbuja en algun lugar del juego
+        TIPO: Booleano
+        PRECONDICIONES: Sin precondiciones
+        OBSERVACIONES: Recorrido de busqueda, para encontrar una burbuja en el juego
+    */
+    
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte) && not hayBurbuja()){
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+
+    return (hayBurbuja())
+}
+
+function hayBurbuja() {
+    /*
+        PROPÓSITO:  Indica si hay una burbuja en la celda actual
+        TIPO: Booleano
+        PRECONDICIONES: Sin precondiciones
+    */
+    
+    return (hayElemento() && formaDelElemento()==Simple && TipoDeElemento(elementoSimple)==Burbuja)
+}
+
+//4
+/*
+Otra de las cosas que se desea analizar es saber sí hay la misma cantidad de espinas rotables que de
+interruptores en el juego. Para ello se desea realizar la función
+hayMismaCantidadDeEspinasRotablesQueDeInterruptores
+*/
+function hayMismaCantidadDeEspinasRotablesQueDeInterruptores() {
+    /*
+        PROPÓSITO:  Indica si hay la misma cantidad de espinas rotables 
+        que de interruptores en el juego
+        TIPO: Booleano
+        PRECONDICIONES: Sin precondiciones
+    */
+    
+    return (nroDeEspinasrotables()==nroDeInterruptores())
+}
+
+function nroDeEspinasrotables() {
+    /*
+        PROPÓSITO:  Describe la cantidad de espinas rotables que hay en el juego
+        TIPO: Numero
+        PRECONDICIONES: Sin precondiciones
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    cantidadEspinasRotables := 0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        cantidadEspinasRotables:= cantidadEspinasRotables + unoSi_CeroSino(hayElementoDireccionableDeTipo_(EspinasRotables))
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+
+   return(cantidadEspinasRotables + unoSi_CeroSino(hayElementoDireccionableDeTipo_(EspinasRotables)))
+}
+
+function nroDeInterruptores() {
+    /*
+        PROPÓSITO:  Describe la cantidad de interruptores que hay en el juego
+        TIPO: Numero
+        PRECONDICIONES: Sin precondiciones
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    cantidadDeInterruptores := 0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        cantidadDeInterruptores:= cantidadDeInterruptores + unoSi_CeroSino(hayElementoDireccionableDeTipo_(Interruptor))
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+
+   return(cantidadDeInterruptores + unoSi_CeroSino(hayElementoDireccionableDeTipo_(Interruptor)))
+}
+
+/*
+Además, se pide que estructure su solución realizando la subtarea
+hayElementoDireccionableDeTipo_ que dado un tipo de elemento indique sí en la celda actual hay un
+elemento direccionable con el tipo dado.
+*/
+function hayElementoDireccionableDeTipo_(tipoElemento) {
+    /*
+        PROPÓSITO:  Indica si en la celda actual hay un elemento 
+        direccionable con el tipo dado
+        TIPO: Booleano
+        PRECONDICIONES: Sin precondiciones
+        PARAMETROS:
+            * tipoElemento - TipoDeElemento - El tipo de elemento a buscar
+    */
+    return (hayElemento() && formaDelElemento()==Direccionable && TipoDeElemento(elementoDireccionable)==tipoElemento)
+}

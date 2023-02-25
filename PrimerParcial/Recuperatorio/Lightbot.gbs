@@ -1,0 +1,434 @@
+/*
+Se pide escriba el procedimiento PrenderLuz que, asumiendo que LightBot está en la celda 
+actual y que en dicha celda hay una luz apagada, la prende. Se pide hacer también ApagarLuz, que hace lo 
+opuesto, apagando la luz de la celda actua
+*/
+function luz() {
+    /*
+        PROPÓSITO:  Describe el color de la luz en el juego LightBot
+        TIPO: Color
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (Azul)
+}
+procedure PrenderLuz() {
+    /*
+        PROPÓSITO:  Prende la luz de la celda actual
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+            * La luz debe estar apagada en la celda actual
+    */
+    Poner(luz)
+}
+
+procedure ApagarLuz() {
+    /*
+        PROPÓSITO:  Apaga la luz de la celda actual
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+            * La luz debe estar encendida en la celda actual   
+    */
+    Sacar(luz)
+}
+
+/*
+Se pide escriba el procedimiento MoverLightBotAlEste que mueve a LightBot una celda hacia 
+el Este de la actual. Se puede asumir que LightBot está en la celda actual mirando hacia el Este, que hay al menos 
+una celda hacia el Este y que tanto la celda actual como la lindante al Este tienen la misma altura.
+*/
+
+procedure MoverLightBotAlEste() {
+    /*
+        PROPÓSITO:  Mueve a LightBot una celda hacia el Este de la actual.
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+            * LightBot debe estar mirando hacia el Este
+            * Debe haber al menos una celda al Este de la actual
+            * Tanto la celda actual como la lindante deben tener la misma altura
+    */
+    SacarA_QueMiraHacia_(lightBot(),este())
+    Mover(Este)
+    PonerA_QueMiraHacia_(lightBot(),este())
+}
+
+procedure SacarA_QueMiraHacia(colorDePersonaje, numeroDeDireccion) {
+    /*
+        PROPÓSITO:  Saca a **personaje** que esta mirando hacia **direccion**
+        PARÁMETROS:
+            * colorDePersonaje: Color - El color con el que se representa al personaje del juego
+            * numeroDeDireccion: Numero - El numero con el que se representa hacia donde mira el personaje del juego
+        PRECONDICIONES:
+            * Debe haber al menos la cantidad de **direccion** del color **personaje**
+    */
+     Sacar_DeColor_(numeroDeDireccion,colorDePersonaje)
+}
+
+procedure PonerA_QueMiraHacia_(colorDePersonaje, numeroDeDireccion) {
+    /*
+        PROPÓSITO:  Pone a **personaje** que esta mirando hacia **direccion**
+        PARÁMETROS:
+            * colorDePersonaje: Color - El color con el que se representa al personaje del juego
+            * numeroDeDireccion: Numero - El numero con el que se representa hacia donde mira el personaje del juego
+        PRECONDICIONES: Sin precondiciones
+    */
+     Poner_DeColor_(numeroDeDireccion,colorDePersonaje)
+}
+
+function lightBot() {
+    /*
+        PROPÓSITO:  Describe el color de lightBot en el juego LightBot
+        TIPO: Color
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (Verde)
+}
+
+function este() {
+    /*
+        PROPÓSITO:  Describe el numero de bolitas verdes con el que se representa hacia donde mira LightBot al Este
+          en el juego LightBot
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (4)
+}
+
+function norte() {
+    /*
+        PROPÓSITO:  Describe el numero de bolitas verdes con el que se representa hacia donde mira LightBot al Norte
+          en el juego LightBot
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (3)
+}
+
+function oeste() {
+    /*
+        PROPÓSITO:  Describe el numero de bolitas verdes con el que se representa hacia donde mira LightBot al Oeste
+          en el juego LightBot
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (2)
+}
+
+function sur() {
+    /*
+        PROPÓSITO:  Describe el numero de bolitas verdes con el que se representa hacia donde mira LightBot al Sur
+          en el juego LightBot
+        TIPO: Numero
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (1)
+}
+
+/*
+Se pide escriba el procedimiento Prender3ConsecutivasAlEste que hace que LightBot prenda 
+las luces de las siguientes 3 celdas consecutivas hacia el Este. Por supuesto puede asumirse que hay al menos tres 
+celdas al Este, todas de la misma altura que la celda actual y que cada una de ellas tiene una luz apagada, además 
+de que LightBot está en la celda actual mirando al Este.
+*/
+
+procedure Prender3ConsecutivasAlEste() {
+    /*
+        PROPÓSITO:  Prende la luz de la celda actual
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+            * LightBot debe estar mirando hacia el Este
+            * Debe haber al menos tres celdas al Este de la actual
+            * Tanto la celda actual como las 3 proximas al Este deben tener la misma altura
+            * Las luces de las proximas 3 celdas al Este deben estar apagadas
+    */
+    repeat(3){
+        MoverLightBotAlEste()
+        PrenderLuz()
+    }
+    
+}
+
+/*
+Se pide escriba el procedimiento RotarEnSentidoHorario que, asumiendo que LightBot está en 
+la celda actual, gira a LightBot cambiando la dirección hacia la cual está mirando. Recordar que la representación 
+de LightBot codifica la dirección a la que mira. Se pide hacer también RotarEnSentidoAntihorario.
+*/
+
+procedure RotarEnSentidoHorario() {
+    /*
+        PROPÓSITO:  Rota en sentido horario la direccion hacia la cual esta mirando LightBot
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+    */
+    direccionHaciaLaCualRota:= direccionEnSentidoHorario()
+    SacarA_QueMiraHacia_(lightBot(), nroBolitas(lightBot()))
+    PonerA_QueMiraHacia_(lightBot(), direccionHaciaLaCualRota)
+}
+
+function direccionEnSentidoHorario() {
+    /*
+        PROPÓSITO: Describe la direccion hacia donde debe girar en sentido horario LightBot
+        TIPO: Numero
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+    */
+    
+    return ( choose oeste() when nroBolitas(lightBot()) == sur()
+                    norte() when nroBolitas(lightBot()) == oeste()
+                    este() when nroBolitas(lightBot()) == norte()
+                    sur() otherwise)
+}
+procedure RotarEnSentidoAntihorario() {
+    /*
+        PROPÓSITO:  Rota en sentido antihorario la direccion hacia la cual esta mirando LightBot
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+    */
+    direccionHaciaLaCualRota:= direccionEnSentidoAntiHorario()
+    SacarA_QueMiraHacia_(lightBot(), nroBolitas(lightBot()))
+    PonerA_QueMiraHacia_(lightBot(), direccionHaciaLaCualRota)
+}
+
+function direccionEnSentidoAntiHorario() {
+    /*
+        PROPÓSITO: Describe la direccion hacia donde debe girar en sentido antihorario LightBot
+        TIPO: Numero
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+    */
+    
+    return ( choose oeste() when nroBolitas(lightBot()) == norte()
+                    norte() when nroBolitas(lightBot()) == este()
+                    este() when nroBolitas(lightBot()) == sur()
+                    sur() otherwise
+}
+
+/*
+Se pide escriba el procedimiento MoverLightBotAl_ que mueve a LightBot un paso en la 
+dirección dada, asumiendo que LightBot se encuentra en la celda actual, mirando en dicha dirección. Para 
+solucionar el problema puede hacer uso de la siguiente función primitiva:
+
+codificaciónParaLightBotCuandoMiraAl_(direcciónDondeMira) 
+/* 
+    PROPÓSITO: Describir la cantidad de bolitas verdes con la cual se 
+        representaría a LightBot si éste estuviera mirando en la 
+        dirección **direcciónDondeMira**. 
+    PARÁMETROS: 
+        * direcciónDondeMira: Dirección - La dirección hacia la cual 
+              miraría LightBot y para la cual se desea saber 
+              la representación en bolitas verdes. 
+    TIPO: Número 
+    PRECONDICIONES: Ninguna
+*/
+
+procedure MoverLightBotAl_(direccion) {
+    /*
+        PROPÓSITO: Mueve a LightBot una celda hacia **direccion**
+        PARAMETROS:
+            * direccion: Direccion - La direccion hacia la cual se tiene que mover LightBot
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+            * LightBot debe estar mirando hacia el **direccion**
+            * Debe haber al menos una celda en direccion hacia **direccion**
+    */
+    SacarA_QueMiraHacia_(lightBot(), codificaciónParaLightBotCuandoMiraAl_(direccion))
+    Mover(direccion)
+    PonerA_QueMiraHacia_(lightBot(), codificaciónParaLightBotCuandoMiraAl_(direccion))
+}
+
+/*
+Se pide escriba el procedimiento Avanzar que mueve a LightBot una celda hacia la dirección en 
+la que mira. Puede asumir que LightBot se encuentra en la celda actual, y además puede hacer uso de la siguiente 
+función primitiva: 
+
+direcciónALaQueMiraLightBot() 
+/* 
+    PROPÓSITO: Describir la dirección a la cual mira LightBot. 
+    TIPO: Dirección 
+    PRECONDICIONES: LightBot se encuentra en la celda actual. 
+*/ 
+
+
+procedure Avanzar() {
+    /*
+        PROPÓSITO:  Mueve a LightBot una celda hacia la direccion en la que mira
+        PRECONDICIONES:
+            * LightBot debe estar en la celda actual
+            * Debe haber al menos una celda hacia la direccion en la que mira
+    */
+    SacarA_QueMiraHacia_(lightBot(),codificaciónParaLightBotCuandoMiraAl_(direcciónALaQueMiraLightBot()))
+    Mover(direcciónALaQueMiraLightBot())
+    PonerA_QueMiraHacia_(lightBot(),codificaciónParaLightBotCuandoMiraAl_(direcciónALaQueMiraLightBot()))
+}
+
+
+/*
+Se pide escriba la función estáLightBotSobreLuzPrendidaAcá que indica sí en la celda actual 
+se encuentra LightBot y este está sobre una luz prendida. 
+*/
+function estáLightBotSobreLuzPrendidaAcá() {
+    /*
+        PROPÓSITO:  Indica si en la celda actual se encuentra LightBot y este esta sobre una luz prendida
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (estaLightBotAca()&& hayLuzPrendidaAcá())
+}
+
+function estaLightBotAca() {
+    /*
+        PROPÓSITO:  Indica si en la celda actual se encuentra LightBot 
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (hayBolitas(lightBot()))
+}
+
+function hayLuzPrendidaAcá() {
+    /*
+        PROPÓSITO:  Indica si hay una luz prendida en la celda actual
+        TIPO: Booleano
+        PRECONDICIONES: Ninguna
+    */
+    
+    return ( hayBolitas(luz()) && nroBolitas(luz()) == 2)
+}
+/*
+Se pide escriba el procedimiento IrALightBot que posiciona el cabezal sobre LightBot. Se puede 
+asumir que LightBot está en algún lugar del tablero.
+*/
+procedure IrALightBot() {
+    /*
+        PROPÓSITO:  Posiciona el cabezal sobre LightBot
+        PRECONDICIONES:
+            * LightBot esta en algun lugar del tablero
+        OBSERVACIONES: Recorrido de busqueda, buscando a LightBot para posicionarse sobre él.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    while(not estaLightBotAca()){
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+}
+/*
+Se pide escriba el procedimiento ReiniciarNivel que apaga todas las luces del tablero y posiciona 
+a LightBot en la celda (0,0), sin importar donde estaba ubicado antes, pero mirando en la misma dirección que 
+estaba mirando previo a reiniciar el nivel. Se asume que LightBot se encuentra en algún lugar del tablero
+*/
+procedure ReiniciarNivel() {
+    /*
+        PROPÓSITO:  Reinicia el nivel del juego.
+        PRECONDICIONES:
+            * LightBot esta en algun lugar del tablero
+    */
+    ApagarTodasLasLuces()
+    PosicionarAlightBotEnOrigen()
+}
+
+procedure ApagarTodasLasLuces() {
+    /*
+        PROPÓSITO:  Apaga todas las luces del tablero
+        PRECONDICIONES:Ninguna
+        OBSERVACIONES: Recorrido de procesamiento, apagando todas las luces del tablero.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    while(haySiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)) {
+        ApagarLuzSiHayPrendida()
+        IrASiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)
+    }
+    ApagarLuzSiHayPrendida()
+}
+
+procedure ApagarLuzSiHayPrendida() {
+    /*
+        PROPÓSITO:  Apaga la luz de la celda actual, si estuviera prendida
+        PRECONDICIONES: Ninguna
+    */
+    if(hayLuzPrendidaAcá()){
+        ApagarLuz()
+    }
+}
+
+procedure PosicionarAlightBotEnOrigen() {
+    /*
+        PROPÓSITO:  Posiciona a LightBot en el origen del tablero
+        PRECONDICIONES:
+            * LightBot esta en algun lugar del tablero
+    */
+    IrALightBot()
+    direccionALaQueMira:= codificaciónParaLightBotCuandoMiraAl_(direcciónALaQueMiraLightBot()) 
+    SacarA_QueMiraHacia_(lightBot(),direccionALaQueMira)
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    PonerALightBotMirandoAl_(lightBot(),direccionALaQueMira)
+}
+/*
+Se pide escriba la función cantidadDeLucesPorPrenderEnAltura_ que dado un número 
+describe la cantidad de luces que quedan aún por prender (las apagadas) y que están en la altura dada. 
+*/
+function cantidadDeLucesPorPrenderEnAltura_(alturaAEvaluar) {
+    /*
+        PROPÓSITO:  Describe la cantidad de luces que quedan por prenden y que estan en la altura **altura**
+        PRECONDICIONES: Ninguna
+        PARAMETROS: 
+            * alturaAEvaluar - Numero - La altura que debe tener la celda a evaluar
+        OBSERVACIONES: Recorrido de acumulacion, contando la cantidad de luces por prender
+        TIPO: Numero
+    */
+    cantidadDeLuces:= 0
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    while(haySiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)) {
+        cantidadDeLuces:= cantidadDeLuces + unoSi_CeroSino(hayLuzApagadaEnAltura_(alturaAEvaluar))
+        IrASiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)
+    }
+    return(cantidadDeLuces + unoSi_CeroSino(hayLuzApagadaEnAltura_(alturaAEvaluar)))
+}
+
+function hayLuzApagadaEnAltura_(altura) {
+    /*
+        PROPÓSITO:  Indica si hay una luz apagada en la celda actual y se encuentra en la altura **altura**
+        PRECONDICIONES: Ninguna
+        PARAMETROS: 
+            * alturaAEvaluar - Numero - La altura de la celda a evaluar
+        TIPO: Booleano
+    */
+
+    return(hayLuzApagadaAca() && esCeldaConAltura_(alturaAEvaluar))
+}
+
+function hayLuzApagadaAca() {
+    /*
+        PROPÓSITO:  Indica si hay una luz apagada en la celda actual
+        PRECONDICIONES: Ninguna
+        TIPO: Booleano
+    */
+
+    return( hayBolitas(luz()) && nroBolitas(luz()) == 1)
+}
+
+function hayLuzApagadaAca(alturaAEvaluar) {
+    /*
+        PROPÓSITO:  Indica si la celda actual se encuentra en la altura **altura**
+        PRECONDICIONES: Ninguna
+        PARAMETROS: 
+            * alturaAEvaluar - Numero - La altura a evaluar
+        TIPO: Booleano
+    */
+
+    return(nroBolitas(alturaDeCelda()) == alturaAEvaluar)
+}
+
+function alturaDeCelda() {
+    /*
+        PROPÓSITO:  Describe el color de la altura de celda en el juego LightBot
+        TIPO: Color
+        PRECONDICIONES: Ninguna
+    */
+    
+    return (Negro)
+}

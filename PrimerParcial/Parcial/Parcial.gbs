@@ -1,0 +1,100 @@
+//1
+procedure PropagarExplosionAl_ConPotencia_(direccion, potencia){
+    /*
+    PROPÓSITO: Propaga una explosion con la onda expansiva en direcion al **direccion** 
+    con una potencia de **potencia**.
+    PRECONDICIONES: 
+        *El cabezal no esta en el borde del tablero.
+        *Hay una bomba en la celda actual.
+        *Los bordes del tablero tienen concreto.
+    PARAMETROS:
+        *direccion - Direccion - La direccion hacia la cual se propaga la onda expansiva
+        *potencia - Numero - La potencia de la bomba.
+    OBSERVACIONES: Recorrido de acumulacion y procesamiento, 
+    */
+
+    cantidadDeCeldasAfectadas:= 0
+    while(not hayObstaculo() && cantidadDeCeldasAfectadas/=potencia){
+        Mover(direccion)
+        PropagarExplosionAca()
+        cantidadDeCeldasAfectadas:= cantidadDeCeldasAfectadas+1
+    }
+    PropagarExplosionAca()
+    Mover_VecesAl_(cantidadDeCeldasAfectadas,opuesto(direccion))
+}
+
+procedure PropagarExplosionAca(){
+    /* 
+    PROPÓSITO: Propaga una explosion en la celda actual sacando los elementos que corresponda.
+    PRECONDICIONES: Ninguna
+    */
+    if(hayEnemigo()){
+        Sacar_Enemigos(cantidadDeEnemigos())
+    } elseif(estaBomberman() || hayLadrillo() ){
+        QuitarElementoAca()
+    }
+}
+
+procedure Sacar_Enemigos(cantidad){
+    /* 
+    PROPÓSITO: Saca **cantidad** enemigos de la celda actual
+    PRECONDICIONES: Debe haber al menos **cantidad** de enemigos en la celda actual. 
+    PARAMETROS: cantidad - Numero - La cantidad de enemigos.
+    */
+    repeat(cantidad){
+        QuitarElementoAca()
+    }
+}
+
+function hayLadrillo(){
+    /* 
+    PROPÓSITO: Indica si el tipo de obstaculo de la celda actual es un ladrillo
+    PRECONDICIONES: Sin precondiciones.
+    Tipo: Booleano
+    */
+    return(hayObstaculo() && tipoDeObstaculo==ladrillo())
+}
+
+//2
+procedure ExplotarBombaAca(){
+    /*
+    PROPÓSITO: Explota una bomba en la celda actual
+    PRECONDICIONES: 
+        *Hay una bomba en la celda actual.
+        *Los bordes del tablero tienen concreto.
+    OBSERVACIONES: Recorrido de acumulacion y procesamiento, 
+    */
+    direccion:= minDir()
+
+    while(direccion/=maxDir()){
+        PropagarExplosionAl_ConPotencia_(direccion,potenciaDeBombaAca())
+        direccion:= siguiente(direccion)
+    }
+    PropagarExplosionAl_ConPotencia_(direccion,potenciaDeBombaAca())
+    QuitarElementoAca()
+}
+
+//3
+function cantidadDeUbicacionesConPuntajeMayorA_ParaBombaDePotencia_(puntaje,potencia){
+    /* 
+    PROPÓSITO: Describe la cantidad de ubicaciones con mayor puntaje a **puntaje** dada una potencia
+    de **potencia**
+    PRECONDICIONES: 
+        *La potencia debe ser mayor a 0.
+    PARAMETROS:
+        *puntaje - Numero - El puntaje a superar para contabilizar la ubicacion.
+        *potencia - Numero - La potencia de la bomba a evaluar.
+    Tipo: Numero
+    OBSERVACIONES: Recorrido de acumulacion, contando las ubicaciones que superen el puntaje 
+    **puntaje**.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    celdasConPuntajeMayor:=0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte){
+        celdasConPuntajeMayor:= celdasConPuntajeMayor + 
+                                unoSi_CeroSino(esCeldaVacia() && puntosQueOtorgariaUnaBombaDePotenciaAca(potencia)>puntaje)
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    celdasConPuntajeMayor:= unoSi_CeroSino(esCeldaVacia() && puntosQueOtorgariaUnaBombaDePotenciaAca()>puntaje)
+    return(celdasConPuntajeMayor)
+}

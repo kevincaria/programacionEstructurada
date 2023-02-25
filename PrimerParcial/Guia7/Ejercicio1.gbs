@@ -1,0 +1,66 @@
+//a. La cantidad total de bolitas de la celda actual. 
+function cantidadTotalDeBolitas(){
+    /*
+        PROPÓSITO: Describe la cantidad de bolitas totales que hay en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Nùmero
+    */
+    return(nroBolitas(Azul)+nroBolitas(Negro)+nroBolitas(Rojo)+nroBolitas(verde))
+}
+
+//b. Sí hay más de 5 bolitas en total en la celda actual. 
+function hayMàsDe5BolitasEnTotal(){
+    /*
+        PROPÓSITO: Indica si hay mas de 5 bolitas en total en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+    */
+    return(cantidadTotalDeBolitas()>5)
+}
+
+//c. Sí hay exactamente 5 bolitas en la celda actual. 
+function hay5BolitasEnTotal(){
+    /*
+        PROPÓSITO: Indica si hay 5 bolitas en total en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+    */
+    return(cantidadTotalDeBolitas()=5)
+}
+
+//d. Sí hay al menos 5 bolitas en la celda actual. 
+function hayAlMenos5BolitasEnTotal(){
+    /*
+        PROPÓSITO: Indica si hay al menos 5 bolitas en total en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+    */
+    return(cantidadTotalDeBolitas()>=5)
+}
+
+function tieneUnaDeCada(){
+    /*
+        PROPÓSITO: Indica si hay al menos una bolita de cada color en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+    */
+    return(hayBolitas(Azul)&&hayBolitas(Negro)&&hayBolitas(Rojo)&&hayBolitas(verde))
+}
+
+function esCeldaVacía(){
+    /*
+        PROPÓSITO: Indica si la celda actual està vacìa.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+    */
+    return((nroBolitas(Azul)+nroBolitas(Negro)+nroBolitas(Rojo)+nroBolitas(verde))==0)
+}
+
+function esCeldaConBolitas(){
+    /*
+        PROPÓSITO: Indica si en la celda actual faltan bolitas de algun color y no esta vacìa.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+    */
+    return(not(tieneUnaDeCada)&&not(esCeldaVacía))
+}

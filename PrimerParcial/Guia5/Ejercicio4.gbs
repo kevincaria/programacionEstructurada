@@ -1,0 +1,56 @@
+program{
+    DibujarLaBandaGloriosaDeAncho_(6)
+}
+
+procedure DibujarLaBandaGloriosaDeAncho_(ancho){
+    /*
+        PROPÓSITO: Dibuja la banda Roja de 4 celdas de alto y  **ancho** celdas de ancho desde la celda actual.
+        PRECONDICIONES: 
+            * Debe haber sólo **ancho** celdas hacia el Este de la celda actual.
+            * Debe haber sólo (**ancho** 3) celdas hacia el Norte de la celda actual
+        PARÁMETROS: ancho - Número - Número que indica el ancho de la banda a partir de la celda actual.
+    */
+    repeat(previo(ancho)){
+        DibujarLineaRoja()
+        MoverEnDiagonal_(Este)
+    }
+    DibujarLineaRoja()
+}
+
+procedure DibujarLineaRoja(){
+    /*
+        PROPÓSITO: Dibuja la linea Roja de 4 celdas de alto desde la celda actual.
+        PRECONDICIONES: 
+            * Debe haber sólo (**ancho** 3) celdas hacia el Norte de la celda actual
+    */
+    repeat(3){
+        Poner(Rojo)
+        Mover(Norte)
+    }
+    Poner(Rojo)
+    Mover_VecesAl_(3,Sur)
+}
+
+procedure MoverEnDiagonal_(direccionAMover){
+    /*
+        PROPÓSITO: Mueve el cabezal una posicion hacia **direccionAMover** desde la celda actual.
+        PRECONDICIONES: 
+            * Debe haber al menos una celda hacia eñ **direccionAMover** de la celda actual
+        PARÁMETROS: direccionAMover - Dirección - Dirección en la que se mueve el cabezal.
+    */
+    Mover(direccionAMover)
+    Mover(previo(direccionAMover))
+}
+
+procedure Mover_VecesAl_(cantidadAMover, direcciónAMover){
+    /*
+        PROPÓSITO: Mover el cabezal **cantidadAMover** veces en dirección al **direcciónAMover** de la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos **cantidadAMover** celdas hacia **direcciónAMover** de la celda actual.
+        PARÁMETROS: cantidadAMover - Número - Cantidad de veces que se mueve el cabezal de la celda actual.
+                    direcciónAMover - Dirección - Indica la dirección en la que se va a mover el cabezal.
+    */
+    repeat(cantidadAMover){
+        Mover(direcciónAMover)
+    }
+}
