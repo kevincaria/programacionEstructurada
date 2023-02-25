@@ -2,6 +2,10 @@
 
 Los ejercicios de este repositorio corresponden a la ejercitacion de la materia Programacion Estructurada de la Universidad Nacional de Hurlingham.
 
+Cada ejercicio es único y se enfoca en un aspecto específico de la programación estructurada, desde conceptos básicos como variables y estructuras de control de flujo, hasta temas avanzados como algoritmos de búsqueda y ordenamiento. Los ejercicios también incluyen soluciones completas y comentarios explicativos para ayudar a los usuarios a comprender mejor cómo se resuelve cada problema.
+
+Además de los ejercicios, el repositorio también incluye una guía completa de referencia para la herramienta Gobstones, que proporciona una descripción detallada de la sintaxis, las estructuras de datos y las funciones disponibles en Gobstones. Esta guía de referencia puede ser útil para aquellos que son nuevos en Gobstones o que desean refrescar sus conocimientos sobre la herramienta.
+
 La programación estructurada es un paradigma de programación que se basa en el uso de estructuras y técnicas de programación bien definidas y organizadas. Su objetivo es mejorar la claridad, eficiencia, modularidad y facilidad de mantenimiento del código.
 
 ## Características de la programación estructurada
