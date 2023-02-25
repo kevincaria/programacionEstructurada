@@ -1,0 +1,25 @@
+procedure Poner_Al_(colorAPoner, direcciónDondePoner){
+    /*
+        PROPÓSITO: Poner una bolita de color **colorAPoner** en la celda lindante al **direcciónDondePoner**
+         desde la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 1 celda hacia **direcciónAMover** de la celda actual.
+        PARÁMETROS: direcciónAMover - Dirección - Indica la dirección en la que se mueve el cabezal.
+                    colorAPoner - Color - Indica el color que se pone en la celda actual.
+    */
+    Mover(direcciónDondePoner)
+    Poner(colorAPoner)
+}
+
+procedure ReemplazarUnaDe_Por_(colorAReemplazar, colorPorElCualReemplazar){
+    /*
+        PROPÓSITO: Sacar una bolita de color **colorAReemplazar** y poner una bolita de color
+         **colorPorElCualReemplazar** en la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 1 bolita de color **colorAReemplazar** en la celda actual.
+        PARÁMETROS: colorAReemplazar - Color - Indica el color de la bolita que se saca de la celda actual.
+                    colorPorElCualReemplazar - Color - Indica el color de la bolita que se pone en la celda actual.
+    */
+    Sacar(colorAReemplazar)
+    Poner(colorPorElCualReemplazar)
+}

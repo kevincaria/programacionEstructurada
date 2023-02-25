@@ -1,0 +1,22 @@
+procedure Mover3VecesAl_(direcciónAMover){
+    /*
+        PROPÓSITO: Mover el cabezal 3 celdas hacia **direcciónAMover** desde la celda actual.
+        PRECONDICIONES:
+            * Debe haber al menos 3 celdas hacia el **direcciónAMover** de la celda actual.
+        PARÁMETROS: direcciónAMover - Dirección - Indica la dirección en la que se mueve el cabezal.
+    */
+    repeat(3){
+        Mover(direcciónAMover)
+    }
+}
+
+procedure Poner6DeColor_(colorAPoner){
+    /*
+        PROPÓSITO: Poner 6 bolitas del color  **colorAPoner** en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        PARÁMETROS: colorAPoner - Color - Indica el color que se pone en la celda actual.
+    */
+    repeat(6){
+        Poner(colorAPoner)
+    }
+}
