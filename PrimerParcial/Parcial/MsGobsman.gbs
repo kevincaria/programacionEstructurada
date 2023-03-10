@@ -1,0 +1,265 @@
+//10
+function puntajeAObtenerEnCeldaActual(){
+    /*
+        PROPÓSITO: Describe el puntaje a obtener de la celda actual
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Numero
+    */
+    return(puntajeCoco()+puntajeCereza())
+}
+
+function puntajeCoco(){
+    /*
+        PROPÓSITO: Describe el puntaje a obtener, si hubiera coco en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Numero
+    */
+    return(choose  100 when (hayCoco())
+                    0 otherwise)
+}
+
+function puntajeCereza(){
+    /*
+        PROPÓSITO: Describe el puntaje a obtener, si hubiera cerezas en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Numero
+    */
+    return(choose  2000 when (hayCereza())
+                    0 otherwise)
+}
+
+//11
+function puntajeAObtenerEnCeldaActual(){
+    /*
+        PROPÓSITO: Describe el puntaje a obtener de la celda actual
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Numero
+    */
+    return(puntajeCoco()+puntajeCereza()+puntajeFrutilla())
+}
+
+function puntajeFrutilla(){
+    /*
+        PROPÓSITO: Describe el puntaje a obtener, si hubiera frutilla en la celda actual.
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Numero
+    */
+    return(choose  500 when (hayFrutilla())
+                    0 otherwise)
+}
+
+
+//12
+procedure ComerLoQueHayEnLaCeldaYMostrarPuntos(){
+    /*
+    PROPÓSITO: Ms GobsMan Come todo lo que se encuentre en la celda actual y muestra el puntaje obtenido
+    PRECONDICIONES:
+        *Ms Gobs-Man está en la celda actual.
+    */
+    cantidadDePuntos:= puntajeAObtenerEnCeldaActual()
+    ComerLoQueHayEnLaCelda()
+    Mostrar_PuntosEnPanalla(cantidadDePuntos)
+}
+
+procedure ComerLoQueHayEnLaCelda(){
+    /*
+    PROPÓSITO: Ms GobsMan Come todo lo que se encuentre en la celda actual.
+    PRECONDICIONES:
+        *El cabezal se encuentra sobre Ms GobsMan.
+    */
+    ComerCerezaSiHay()
+    ComerCocoSiHay()
+    ComerFrutillaSiHay()
+}
+
+procedure ComerCocoSiHay(){
+    /*
+        PROPÓSITO: Ms GobsMan Come coco de la celda actual si hay, caso contrario no hace nada.
+        PRECONDICIONES: Gobs-Man está en la celda actual.
+    */
+    if(hayCoco()){
+        ComerCoco()
+    }
+}
+
+procedure ComerFrutillaSiHay(){
+    /*
+        PROPÓSITO: Ms GobsMan Come frutilla de la celda actual si hay, caso contrario no hace nada.
+        PRECONDICIONES: Gobs-Man está en la celda actual.
+    */
+    if(hayFrutilla()){
+        ComerFrutilla()
+    }
+}
+
+//13
+function cantidadDePuntosEnElNivel(){
+    /*
+        PROPÓSITO: Describe el puntaje a obtener en el nivel
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Numero
+        OBSERVACIONES: Recorrido de acumulacion, sumando los puntos a obtener en el nivel.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    cantidadDePuntos := 0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)){
+        cantidadDePuntos:= cantidadDePuntos + puntajeAObtenerEnCeldaActual()
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    return(cantidadDePuntos+ puntajeAObtenerEnCeldaActual())
+}
+
+//14
+function hayAlgúnFantasmaEnElNivel(){
+    /*
+        PROPÓSITO: Indica si hay un fantasma en el nivel
+        PRECONDICIONES: Sin precondiciones.
+        TIPO: Booleano
+        OBSERVACIONES: Recorrido de busqueda, buscando un fantasma en el nivel.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)&& not hayFantasma()){
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+    return(hayFantasma())
+}
+
+//15
+function cantidadDePuntosEnNivelHacia_Y_(dirPrincipal,dirSecundaria){
+    /*
+    PROPÓSITO: Describe la cantidad de puntos a obtener iniciando desde *dirPrincipal* y 
+    *dirSecundaria* hasta llegar al fantasma o al final.
+    PRECONDICIONES:
+        *Los paràmetros **dirPrincipal** y **dirSecundaria** no pueden ser opuestos ni iguales. 
+    PARÀMETROS: 
+        * dirPrincipal - Direcciòn - Direcciòn principal del recorrido.
+        * dirSecundaria - Direcciòn - Direcciòn secundaria del recorrido. 
+    TIPO: Numero.
+    OBSERVACIONES: Recorrido de acumulacion y busqueda, sumando el puntaje hasta encontrar un fantasma o el final.
+    */
+
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(dirPrincipal,dirSecundaria)
+    cantidadDePuntos := 0
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal,dirSecundaria)&& not hayFantasma()){
+        cantidadDePuntos:= cantidadDePuntos + puntajeAObtenerEnCeldaActual()
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal,dirSecundaria)
+    }
+    return(cantidadDePuntos + puntajeAObtenerEnCeldaActual())
+}
+
+//16
+function esMejorRecorridoHacia_Y_QueHacia_Y_(dirPrincipal1,dirSecundaria1,dirPrincipal2,dirSecundaria2){
+    /*
+    PROPÓSITO: Indica si el recorrido iniciando desde *dirPrincipal1* y 
+    *dirSecundaria1* obtiene mas puntaje que *dirPrincipal2* y  *dirSecundaria2*
+    PRECONDICIONES:
+        *Los paràmetros **dirPrincipal1** y **dirSecundaria1** no pueden ser opuestos ni iguales. 
+        *Los paràmetros **dirPrincipal2** y **dirSecundaria2** no pueden ser opuestos ni iguales. 
+    PARÀMETROS: 
+        * dirPrincipal1 - Direcciòn - Direcciòn principal del primer recorrido.
+        * dirSecundaria1 - Direcciòn - Direcciòn secundaria del primer recorrido. 
+        * dirPrincipal2 - Direcciòn - Direcciòn principal del  segundo recorrido.
+        * dirSecundaria2 - Direcciòn - Direcciòn secundaria del segundo recorrido. 
+    TIPO: Booleano.
+    */
+    return(cantidadDePuntosEnNivelHacia_Y_(dirPrincipal1,dirSecundaria1)>cantidadDePuntosEnNivelHacia_Y_(dirPrincipal2,dirSecundaria2))
+}
+
+//17
+function masDeLaMitadDelNivelSiVaHacia_Y_(dirPrincipal,dirSecundaria){
+    /*
+    PROPÓSITO: Indica si Ms GobsMan recorrio mas de la mitad del nivel iniciando desde *dirPrincipal* y 
+    *dirSecundaria*.
+    PRECONDICIONES:
+        *Los paràmetros **dirPrincipal** y **dirSecundaria** no pueden ser opuestos ni iguales. 
+        *El cabezal se encuentra sobre Ms GobsMan.
+    PARÀMETROS: 
+        * dirPrincipal - Direcciòn - Direcciòn principal del recorrido.
+        * dirSecundaria - Direcciòn - Direcciòn secundaria del recorrido. 
+    TIPO: Numero.
+    OBSERVACIONES: Recorrido de acumulacion, sumando la cantidad de celdas recorridas por Ms GobsMan.
+    */
+    cantidadDeCeldas := 1
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(opuesto (dirPrincipal), opuesto (dirSecundaria)){
+        cantidadDeCeldas:= cantidadDeCeldas + 1
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(opuesto (dirPrincipal), opuesto (dirSecundaria))
+    }
+    return(cantidadDeCeldas > (tamañoDelTablero() div 2))
+}
+
+//18
+function hayCoco(){
+    return(nroBolitas(Negro) == 1)
+}
+
+//19
+procedure MoverFantasmaHaciaMsGobsMan(){
+    /*
+        PROPÓSITO: 
+        PRECONDICIONES: Gobs-Man está en la celda actual.
+    */
+
+    while(not hayGobsMan()){
+        MoverFantasmaUnaCeldaHaciaMsGobsMan()
+    }
+}
+
+procedure MoverFantasmaUnaCeldaHaciaMsGobsMan(){
+    /*
+        PROPÓSITO: 
+        PRECONDICIONES: Gobs-Man está en la celda actual.
+    */
+
+    if (elFantasmaDebeMoverseHorizontalmente) {
+        MoverFantasmaUnaCeldaHaciaMsGobsMan horizontal
+    elseif (elFantasmaDebeMoverseVerticalmente) {
+        MoverFantasmaUnaCeldaHaciaMsGobsMan vertical
+    } else {
+        MoverFantasmaUnaCeldaHaciaMsGobsMan diagonal
+    }
+}
+
+function elFantasmaDebeMoverseHorizontalmente{
+    return (filaDondeEstáElFantasma == filaDondeEstáMsGobsMan)
+}
+
+function elFantasmaDebeMoverseVerticalmente{
+    return (columnaDondeEstáElFantasma == columnaDondeEstáMsGobsMan)
+}
+
+function filaDondeEstáElFantasma{
+    return (coordenadaY)
+}
+function columnaDondeEstáElFantasma{
+    return (coordenadaX)
+}
+
+function filaDondeEstáMsGobsMan{
+    return (coordenadaY)
+}
+function columnaDondeEstáMsGobsMan{
+    return (coordenadaX)
+}
+
+procedure  MoverFantasmaUnaCeldaHaciaMsGobsMan horizontal(, ) {
+    MoverFantasmaAl_(direcciónHorizontalAMoverElFantasma)
+}
+
+function direcciónHorizontalAMoverElFantasma(){
+    return( choose Oeste when columnaDondeEstáMsGobsMan<columnaDondeEstáElFantasma
+                   Este otherwise )
+}
+
+procedure  MoverFantasmaUnaCeldaHaciaMsGobsMan vertical(, ) {
+    MoverFantasmaAl_(direcciónVerticalAMoverElFantasma)
+}
+
+function direcciónVerticalAMoverElFantasma(){
+    return( choose Sur when  filaDondeEstáMsGobsMan< filaDondeEstáElFantasma
+                   Norte otherwise )
+}
+
+
+
+/////
