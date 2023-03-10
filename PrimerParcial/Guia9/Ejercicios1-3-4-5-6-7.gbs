@@ -1,0 +1,117 @@
+//1
+function tieneBolitas_Al_(color, dirección){
+    /*
+        PROPÓSITO:Indica si hay bolitas de color **color** en la celda lindante en direccion **direccion**
+        PRECONDICIONES: Debe haber al menos una celda en direccion **direccion**
+        PARAMETROS:
+            *dirección - Dirección - La dirección en la cual buscar las bolitas.
+            *color - Color - El color de las bolitas a buscar.
+        TIPO:Booleano
+    */
+    Mover(dirección)
+    return(hayBolitas(color))
+}
+
+//3
+function hayBolitas_EnElBorde_(color, dirección){
+    /*
+        PROPÓSITO:Indica si hay bolitas de color **color** en el borde en direccion **direccion**
+        PRECONDICIONES: Debe haber al menos una celda en direccion **direccion**
+        PARAMETROS:
+            *dirección - Dirección - La dirección en la cual buscar las bolitas.
+            *color - Color - El color de las bolitas a buscar.
+        TIPO:Booleano
+    */
+    IrAlBorde(dirección)
+    return(hayBolitas(color))
+}
+
+//4
+function tieneBolitas_Hacia_(color, dirección){
+    /*
+        PROPÓSITO:Indica si hay bolitas de color **color** en algunas de las celdas en direccion **direccion**
+        PRECONDICIONES: Debe haber al menos una celda en direccion **direccion**
+        PARAMETROS:
+            *dirección - Dirección - La dirección en la cual buscar las bolitas.
+            *color - Color - El color de las bolitas a buscar.
+        TIPO:Booleano
+    */
+    Mover(dirección)
+    while(puedeMover(dirección)&&not hayBolitas(color)){
+        Mover(dirección)
+    }
+
+    return(hayBolitas(color))
+}
+
+function hayBolitas_Hacia_(color, dirección){
+    /*
+        PROPÓSITO:Indica si hay bolitas de color **color** en algunas de las celdas en direccion **direccion**
+        PRECONDICIONES: Ninguna
+        PARAMETROS:
+            *dirección - Dirección - La dirección en la cual buscar las bolitas.
+            *color - Color - El color de las bolitas a buscar.
+        TIPO:Booleano
+    */
+    return(puedeMover(dirección)&&tieneBolitas_Hacia_(color,dirección))
+}
+
+//5
+function hayCeldaVaciaHacia_(dirección){
+    /*
+        PROPÓSITO:Indica si hay una celda vacia en direccion **direccion**
+        PRECONDICIONES: Sin precondiciones.
+            *dirección - Dirección - La dirección en la cual la celda vacia
+        TIPO:Booleano
+    */
+    return(puedeMover(dirección)&&tieneCeldaVaciaHacia_(dirección))
+}
+
+function tieneCeldaVaciaHacia_(dirección){
+    /*
+        PROPÓSITO:Indica si hay una celda vacia en direccion **direccion**
+        PRECONDICIONES: Debe haber al menos una celda en direccion **direccion**
+            *dirección - Dirección - La dirección en la cual la celda vacia
+        TIPO:Booleano
+    */
+    Mover(dirección)
+    while(puedeMover(dirección)&&not esCeldaVacía()){
+        Mover(dirección)
+    }
+
+    return(esCeldaVacía())
+}
+
+//6
+function hayAlgunaBolita_(color){
+    /*
+        PROPÓSITO:Indica si hay una bolita de color **color** en el tablero
+        PRECONDICIONES: Sin precondiciones.
+            *color - Color - El color de la bolita a buscar.
+        TIPO:Booleano
+        OBSERVACION: Recorrido de busqueda, indicando si hay alguna bolita de color **color**
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)&& not hayBolitas(color)){
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+
+    return(hayBolitas(color))
+}
+
+//7
+function hayAlgunaBolita_(){
+    /*
+        PROPÓSITO:Indica si hay una celda vacia en el tablero
+        TIPO:Booleano
+        OBSERVACION: Recorrido de busqueda, indicando si hay una celda vacia.
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este,Norte)
+
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)&& not esCeldaVacía()){
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este,Norte)
+    }
+
+    return(esCeldaVacía())
+}
