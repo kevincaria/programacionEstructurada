@@ -1,0 +1,73 @@
+procedure IrALightBot() {
+    /*
+        PROPOSITO: Ubica el cabezal sobre LightBot.
+        PRECONDICIONES: LightBot está en el tablero. 
+        OBSERVACIONES: Recorrido de búsqueda sobre el tablero (buscando a LightBot)
+    */
+    IrAlInicioDeUnRecorridoAl_YAl_(Este,Norte)
+    while(not estáLightBotAcá()) {
+        IrASiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)
+    }
+}
+
+procedure ReiniciarNivel() {
+    /*
+        PROPOSITO: Apaga todas las luces y posicióna a LightBot en la celda (0,0) manteniendo la dirección a la que estaba mirando, 
+            dejando el cabezal sobre LightBot.
+        PRECONDICIONES: LightBot está en el tablero. 
+    */
+    ApagarTodasLasLuces()
+    UbicarALightBotEnElOrigen()
+}
+
+
+procedure ApagarTodasLasLuces() {
+    /*
+        PROPOSITO: Apaga todas las luces del nivel, dejando el cabezal en la esquina Norte-Este.
+        PRECONDICIONES: Ninguna.
+        OBSERVACIONES: Recorrido de procesamiento sobre el nivel (apagando las luces).
+    */
+    IrAlInicioDeUnRecorridoAl_YAl_(Este,Norte)
+    while(haySiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)) {
+        ApagarLuzSiHayPrendida()
+        IrASiguienteCeldaEnUnRecorridoAl_YAl_(Este,Norte)
+    }
+    ApagarLuzSiHayPrendida()
+}
+
+procedure ApagarLuzSiHayPrendida() {
+    /*
+        PROPOSITO: Apaga la luz de la celda actual si existiera y estuviera prendida.
+        PRECONDICIONES: Ninguna.
+    */
+    if(hayLuzPrendidaAcá()){
+        ApagarLuz()
+    }
+}
+
+procedure UbicarALightBotEnElOrigen(){
+    /*
+        PROPOSITO: Posiciona a LightBot en la celda (0,0) manteniendo la dirección a la que estaba mirando, 
+            dejando el cabezal sobre LightBot.
+        PRECONDICIONES: LightBot está en el tablero.
+    */
+    IrALightBot()
+    direcciónQueMiraLightBot := direcciónALaQueMiraLightBot()
+    SacarLightBotMirandoAl_(direcciónQueMiraLightBot)
+    PonerLightBotEnElOrigenMirandoAl_(direcciónQueMiraLightBot)
+}
+
+procedure PonerLightBotEnElOrigenMirandoAl_(dirección) {
+    /*
+        PROPOSITO: Pone a LightBot en la celda (0,0) mirando al *dirección*.
+        PRECONDICIONES: No hay bolitas verdes en la celda (0,0).
+    */    
+    IrAlOrigen()
+    PonerLightBotMirandoAl_(dirección)
+}
+
+procedure IrAlOrigen() {
+    IrAlBorde(Oeste)
+    IrAlBorde(Sur)
+}
+

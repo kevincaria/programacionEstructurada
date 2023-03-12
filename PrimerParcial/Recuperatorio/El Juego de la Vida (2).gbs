@@ -1,0 +1,258 @@
+program{
+    
+}
+
+procedure MorirCelula(){
+    /*
+    PROP: Mata la celula viva en la ubicacion actual
+    PRECOND: Hay una celula viva en la ubicacion actual.
+    */
+    Sacar(Verde)
+}
+
+procedure PonerMarcaParaReanimacion(){
+    /*
+    PROP: Marca la celula muerta en la ubicacion actual para ser reanimada
+    PRECOND: No hay una celula viva en la ubicacion actual.
+    OBS: Una ubicacion vacia es un celula muerta
+    */
+    Poner(Azul)
+}
+
+//3
+procedure ProcesarMarcaDeEliminación(){
+    /*
+    PROP: procesa una célula viva que fue marcada para ser eliminada,
+    dejando la célula muerta y eliminando la marca de eliminación.
+    PRECOND: Hay una celula viva en la ubicacion actual y está marcada para eliminacion.
+    OBS: Una ubicacion vacia es un celula muerta
+    */
+    MorirCelula()
+    Sacar(Rojo)
+}
+
+procedure Simular_Ticks(cantidad){
+        /*
+    PROP: simula *cantidad* ticks en el universo.
+    PRECOND: NO
+    PARAM:
+    */
+    
+    repeat(cantidad){
+        SimularUnTick()
+    }
+}
+
+procedure QuitarMarcas_(color){
+        /*
+    PROP: dado un color de marca, elimina la marca de dicho color en
+la célula actual. sí existe..
+    PRECOND: HNo
+PARAM: color - Color : color de la marca a sacar si hubiera , en la celda actual.azul o rojo
+    */
+    if (hayBolitas(color)){
+    Sacar(color)}
+}
+
+procedure QuitarMarcas(){
+        /*
+    PROP: quita tanto las marcas de reanimación como de eliminación de la célula actual.
+    PRECOND: No
+    */
+    QuitarMarcas_(colorMarcaDeReanimación())
+    QuitarMarcas_(colorMarcaDeEliminación())
+
+}
+
+//6
+function esCélulaViva(){
+    /*
+    PROP: indica si la ubicacion actual es una celula viva
+    PRECON: NO
+    Tipo: Booleano
+    */
+    
+    return(hayBolitas(Verde))
+}
+
+//7
+function estaMarcadaParaSerEliminada(){
+    /*
+    PROP: indica si la celula actual esta marcada para ser eliminada.
+    PRECOND: No
+    Tipo: Booleano
+    */
+    return(hayBolitas(Rojo))
+}
+
+
+//8
+procedure PorcesarMarcasDeCelula(){
+    /*
+    PROP: Procesar las posibles marcas de la celula actual.
+    PRECOND:No
+    */
+    
+    if (hayBolitas(Rojo)){
+        ProcesarMarcaDeEliminación()
+    }
+    elseif (hayBolitas(Azul)){
+        ProcesarMarcaDeReanimación()
+    }
+
+}
+
+
+
+procedure ProcesarMarcaDeReanimación(){
+        /*
+    PROP: procesa una célula muerta que fue marcada para ser revivida,
+    dejando la célula viva y eliminando la marca de reanimacion.
+    PRECOND: Hay una celula muerta en la ubicacion actual y está marcada para reanimacion.
+    */
+    Poner(Verde)
+    QuitarMarcas()
+    
+}
+//9
+procedure AplicarPautasDeMarcadoACélula(){
+    /*
+    Proosito: aplica las pautas del juego a la célula actual, según corresponda.
+    Precondicione: Ninguna
+    
+    */
+    if (esCélulaViva() && (cantidadDeVecinasVivas() < 2 || cantidadDeVecinasVivas() >3 )){
+        MarcarParaEliminacion() //Poner(Rojo)
+    } elseif(not esCélulaViva() && cantidadDeVecinasVivas() ==3){
+        MarcarParaReanimacion() //Poner(Azul)
+    }
+}
+
+//10
+function hayVecinasVivasAl_(direccion){
+
+/*
+prop: indica si existe una célula viva en la dirección dada.
+param: direccion - Direccion
+precond: no
+tipo: booleano
+*/
+
+return(puedeMover(direccion) && tieneVecinaVivaAl_(direccion))
+}
+
+
+function tieneVecinaVivaAl_(direccion){
+    /*
+prop: indica si existe una célula viva en la dirección dada.
+param: direccion - Direccion
+precond: hay una ubicacion libre al *direccion*
+tipo: booleano
+*/
+    Mover(direccion)
+    return(esCelulaViva())
+    
+}
+
+
+//11
+function cantidadDeVecinasVivas(){
+    /*
+    prop: determina la cantidad de vecinas vivas que tiene la célula actual.
+    precond:
+    tipo: numero
+    */
+       direccion := minDir()
+       cantidadVecinasVivas := 0
+       while(direccion /= maxDir()){
+       cantidadVecinasVivas := cantidadVecinasVivas + unoSi_CeroSino (hayVecinaVivaAl_(direccion)) + unoSi_CeroSino (hayVecinaVivaEnDiagonalAl_YAl_(direccion,siguiente(direccion)
+        direccion := siguiente(direccion)        
+       }
+    return (cantidadVecinasVivas + unoSi_CeroSino (hayVecinaVivaAl_(direccion)) + unoSi_CeroSino (hayVecinaVivaEnDiagonalAl_YAl_(direccion,siguiente(direccion))   
+}
+
+procedure ProcesarUnTick(){
+    /*
+    Propo: Recorre la totalidad de las células del universo, 
+        aplicando las pautas del juego a cada una de ellas, y 
+        procesando luego las marcas de reanimación o eliminación que se hayan generado.
+    Precondiciones:Ninguna
+    Obs: Recorrido procesamieno
+    */
+    ProcesarMarcados()
+    ProcesarPautas()
+}
+
+procedure RecorridoDeMarcado(){
+    /*
+    Propo: Marca la totalidad de las células del universo, 
+            aplicando las pautas del juego a cada una de ellas
+    Precondiciones: Ninguna
+    Obs: Recorrido procesamieno
+    */
+    IrAPrimerCeldaDeRecorridoAl(Este, Norte)
+    while( haySiguienteCeldaAl_YAl_(Este, Norte)){
+        AplicarPautasDeMarcadoACélula()
+        IrASiguienteCeldaEnREcorridoAl_YAl_(Este,Norte)
+    }
+    AplicarPautasDeMarcadoACélula()
+}
+
+procedure RecorridoDeProcesamiento(){
+    /*
+    Propo: Procesa la totalidad de las células del universo, 
+            aplicando las pautas del juego a cada una de ellas
+    Precondiciones: Ninguna
+    Obs: Recorrido procesamieno
+    */
+    IrAPrimerCeldaDeRecorridoAl(Este, Norte)
+    while( haySiguienteCeldaAl_YAl_(Este, Norte)){
+        PorcesarMarcasDeCelula()
+        IrASiguienteCeldaEnREcorridoAl_YAl_(Este,Norte)
+    }
+    PorcesarMarcasDeCelula()
+}
+
+
+function cantidadDeCélulasVivasEnGeneración_(cantidadTick){
+    /*
+    Propo: Describe la cantidad de celulas vivas que quedan luego de simular "cantidadTick" Ticks.
+    Precondicion: Ninguna
+    Tipo: Numero
+    Parametros: 
+        * cantidadTick: Numero - Describe el numero de ticks
+    */
+    repeat (cantidadTick){
+        ProcesarUnTick()
+    }
+    return(cantidadDeCelulasVivasEnUniverso())
+} 
+
+
+
+function cantidadDeCelulasVivasEnUniverso(){
+    /*
+    Proposito: Describe la cantidad de celulas vivas en el universo
+    Precon: Ninguna
+    Tipo: Numero
+    Obs: Recorrido acumulativo
+    */
+    cantidadDeVivas:=0
+    IrAPrimerCeldaDeRecorridoAl(Este, Norte)
+    while( haySiguienteCeldaAl_YAl_(Este, Norte)){
+        cantidadDeVivas := cantidadDeVivas + unoSiCeroSiNo(esCelulaViva())
+        IrASiguienteCeldaEnREcorridoAl_YAl_(Este,Norte)
+    }
+
+return(cantidadDeVivas + unoSiCeroSiNo(esCelulaViva()))
+}
+
+
+
+
+
+
+
+
+
+
